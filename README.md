@@ -1,27 +1,25 @@
-# TÍTULO DO PROJETO
+# TROCA COMIGO
 
-`CURSO`
+`ANÁLISE E DESEVOLVIMENTO DE SISTEMAS`
 
-`DISCIPLINA`
+`DESENVOLVIMENTO DE UMA APLICAÇÃO DISTRIBUÍDA`
 
-`SEMESTRE`
+`4° SEMESTRE`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Este projeto tem como objetivo criar uma solução prática para pessoas que fazem parte de uma mesma empresa, consigam trocar os turnos do trabalho sem burocracias.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Amanda Salles Monteiro
+* Gabriel Miranda Chaves
+* Icaro Yan Miranda
+* Larysse Gurgel de Oliveira
+* Renê Boaventura Neto
+* Suellen Batista Dias
 
 ## Orientador
 
-* Nome completo do professor 1
-
-## Instruções de utilização
-
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+* Felipe Augusto Lara Soares
 
 # Documentação
 
