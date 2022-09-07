@@ -19,23 +19,48 @@ public class TrocaiApplication {
     }
 
     @Bean
-    CommandLineRunner runner (FuncionarioRepository repo){
-        String email = "mariaDel@bairro.com";
+    CommandLineRunner runner(FuncionarioRepository repo) {
+
         return args -> {
-            Funcionario funcionario = new Funcionario("Maria", "do Bairro", "Maria do Bairro",
-                    Turno.TARDE, Cargo.ATENDENTE, email, "31-34502888",
-                    false, new EscalaMensal(),
-                    List.of(new PedidosDeTroca())
+            Funcionario paola = new Funcionario("Paola", "Bracho",
+                    Turno.TARDE, Cargo.ATENDENTE, "paolal@bairro.com", "31-30301313"
+            );
+            Funcionario paulina = new Funcionario("Paulina", "Bracho",
+                    Turno.MANHA, Cargo.ATENDENTE, "paulina@bairro.com", "31-30301515"
+            );
+            Funcionario carlos = new Funcionario("Carlos", "Daniel",
+                    Turno.MANHA, Cargo.CAIXA, "carlosdaniel@bairro.com", "31-30301414"
+            );
+            Funcionario lalita = new Funcionario("Lalita", "Perez",
+                    Turno.TARDE, Cargo.CAIXA, "lalita@bairro.com", "31-30301616"
+            );
+            Funcionario douglas = new Funcionario("Douglas", "Maldonado",
+                    Turno.TARDE, Cargo.COZINHEIRO, "douglas@bairro.com", "31-30301717"
+            );
+            Funcionario willy = new Funcionario("Willy", "Montero",
+                    Turno.MANHA, Cargo.COZINHEIRO, "willy@bairro.com", "31-30301919"
+            );
+            Funcionario piedad = new Funcionario("Piedad", "Bracho",
+                    Turno.TARDE, Cargo.SUPERVISOR, "piedad@bairro.com", "31-30301111"
+            );
+            Funcionario estefania = new Funcionario("Estefania", "Bracho",
+                    Turno.MANHA, Cargo.SUPERVISOR, "estefania@bairro.com", "31-30301212"
             );
 
+            List<Funcionario> funcionarioList = List.of(paola, paulina, carlos, douglas, lalita, piedad, willy, estefania);
 
-            Query query = new Query();
-            query.addCriteria(Criteria.where("email").is(email));
 
-            repo.findFuncionarioByEmail(email).ifPresentOrElse( f-> System.out.println("Funcionario já existe: " + email), () -> {
-                System.out.println("Inserting funcionario:" + funcionario);
-                repo.insert(funcionario);
-            });
+            for (Funcionario f : funcionarioList) {
+
+                Query query = new Query();
+                query.addCriteria(Criteria.where("email").is(f.getEmail()));
+                repo.findFuncionarioByEmail(f.getEmail()).ifPresentOrElse(
+                        x -> System.out.println("Funcionario com email : " + x.getEmail() + "já existe."),
+                        () -> {
+                            System.out.println("Insertando funcionario" + f);
+                            repo.insert(f);
+                        });
+            }
 
         };
 
