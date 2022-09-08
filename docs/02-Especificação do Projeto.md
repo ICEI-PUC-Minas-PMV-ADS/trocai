@@ -8,19 +8,45 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
+Nos quadros abaixo são apresentadas as personas definidas durante o processo de entendimento do problema.
 
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
 
-> **Links Úteis**:
-> - [Rock Content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x Público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de Empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de Stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
->
-Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+| <img src="img/Camila.jpg" width="100" height="100"> | **Camila Silva** <br> 29 anos   |
+|:---------------------------------------:|:-------------------------------:|
+|**Ocupação** |<br> Lojista <br> Possui ensino médio completo.|
+|**Motivação** |<br> Quer ter mais facilidade para trocar dias da escala de trabalho.
+|**Dispositivos** | Samsung Galaxy |
+|**Aplicativos** |Instagram <br>  |  
+
+<br><br>
+
+| <img src="img/Jonas.jpg" width="100" height="100"> | **Jonas Pereira** <br> 35 anos   |
+|:---------------------------------------:|:-------------------------------:|
+|**Ocupação** |<br> Técnico de enfermagem <br> Possui ensino técnico completo.|
+|**Motivação** |<br> Trabalha em dois hospitais e gostaria de uma solução prática, onde consiga trocar os horários do turno do trabalho com colegas de uma forma mais rápida e sem burocracias.
+|**Dispositivos** | Motorola Edge |
+|**Aplicativos** |Instagram <br> Tiktok  |  
+
+<br><br>
+
+| <img src="img/Fernanda.jpeg" width="100" height="100"> | **Fernanda Sá** <br> 30 anos   |
+|:---------------------------------------:|:-------------------------------:|
+|**Ocupação** |<br> Gerente de Logística <br> Administradora com especialização e mestrado em logística.|
+|**Motivação** |<br> Atua em uma multinacional e precisa controlar trocas de turnos dos mais de 100 colaboradores de seu time em uma planilha em excel. Sua motivação é um sistema que seja fácil realizar troca de turnos.
+|**Dispositivos** | iPhone 12 |
+|**Aplicativos** |LinkedIn |  
+
+<br><br>
+
+| <img src="img/Carlos%20Brito.png" width="100" height="100"> | **Carlos Brito** <br> 42 anos   |
+|:---------------------------------------:|:-------------------------------:|
+|**Ocupação** |<br> Jornalista e Redator <br> Ensino superior em Comunicação Social - Jornalismo.|
+|**Motivação** |<br> Trabalha há 14 anos em uma grande emissora e possui dificuldade para trocar turnos quando há necessidade, devido as informações ficarem restritas apenas as diretorias. Por trabalhar com escala de plantão, acredita que um sistema aberto que mostre as pessoas escaladas por turno, haveria mais flexibilidade para realizar trocas sempre que houvesse um imprevisto.
+|**Dispositivos** | iPhone 11 |
+|**Aplicativos** |LinkedIn <br> Instagram |  
+
+<br><br>
+
 
 ## Histórias de Usuários
 
