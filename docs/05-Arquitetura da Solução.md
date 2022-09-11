@@ -2,11 +2,11 @@
 
 <span style="color:red">Pré-requisitos: <a href="3-Projeto de Interface.md"> Projeto de Interface</a></span>
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+A solução arquitetural definida para a aplicação baseia-se no modelo de arquitetura distribuída em três camadas(3-tier), a camada de apresentação ou interface do usuário; a camada do aplicativo, onde os dados são processados; e a camada de dados, em que os dados associados ao aplicativo são armazenados e gerenciados. 
 
-![Arquitetura da Solução](img/02-mob-arch.png)
+![Arquitetura da Solução](img/arquitetura.drawio.png)
 
-## Diagrama de Classes
+<!-- ## Diagrama de Classes
 
 O diagrama de classes ilustra graficamente como será a estrutura do software, e como cada uma das classes da sua estrutura estarão interligadas. Essas classes servem de modelo para materializar os objetos que executarão na memória.
 
@@ -29,19 +29,29 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
  
 As referências abaixo irão auxiliá-lo na geração do artefato “Esquema Relacional”.
 
-> - [Criando um modelo relacional - Documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/10.2.2?topic=designer-creating-relational-model)
+> - [Criando um modelo relacional - Documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/10.2.2?topic=designer-creating-relational-model) -->
 
-## Modelo Físico
+<!-- ## Modelo Físico
 
-Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do banco de dados. Este arquivo deverá ser incluído dentro da pasta src\bd.
+Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do banco de dados. Este arquivo deverá ser incluído dentro da pasta src\bd.  -->
 
 ## Tecnologias Utilizadas
 
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+<br>
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+|Tecnologia     | Descrição |
+|---------------|-----------|
+|**Java** |[java.com](https://www.java.com/pt-BR/)|
+|**SpringBoot** |[spring.io](https://spring.io/)| 
+|**Apache Tomcat**| [tomcat.apache.org](https://tomcat.apache.org/)|
+|**MongoDB** |[mongodb.com](https://www.mongodb.com/)|
+|**TypeScript**|[typescriptlang.org](https://www.typescriptlang.org/)| 
+|**React** |[reactjs.org](https://pt-br.reactjs.org/)|
+|**Visual Studio Code** |[code.visualstudio.com](https://code.visualstudio.com/)| 
+|**IntelliJ IDEA** |[jetbrains.com/idea](https://www.jetbrains.com/pt-br/idea/)| 
 
-## Hospedagem
+<!--
+ ## Hospedagem
 
 Explique como a hospedagem e o lançamento da plataforma foi feita.
 
@@ -65,4 +75,4 @@ Com base nessas características e nas respectivas sub-características, identif
 >
 > - [ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models](https://www.iso.org/standard/35733.html/)
 > - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de Software - Engenharia de Software 29](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209/)
+> - [Qualidade de Software - Engenharia de Software 29](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209/) -->
