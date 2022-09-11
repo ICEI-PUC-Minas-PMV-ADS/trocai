@@ -47,6 +47,15 @@ Nos quadros abaixo são apresentadas as personas definidas durante o processo de
 
 <br><br>
 
+| <img src="img/Samuel.jpeg" width="100" height="100"> | **Samuel Andrade** <br> 21 anos   |
+|:---------------------------------------:|:-------------------------------:|
+|**Ocupação** |<br> Garçom <br> Estudante de engenharia.|
+|**Motivação** |<br> Trabalha há 1 ano como garçom em uma rede de restaurantes localizada dentro de um shopping center, com funcionamento de domingo a domingo das 9:00 às 22:00. Ele precisa realizar trocas de turnos com frequência devido os horários da faculdade que são incertos. Um sistema iria agilizar o processo, pois ele conseguiria ver quais garçons estariam disponíveis nos dias que ele precisa.
+|**Dispositivos** | Samsung A12 |
+|**Aplicativos** | Instagram |  
+
+<br><br>
+
 
 ## Histórias de Usuários
 
@@ -54,17 +63,20 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
+|Usuário do sistema  | Criar cadastro como usário         | Conseguir acessar paltaforma           |
+|Usuário do sistema  | Enviar solicitações de troca de escala diretamente para um colaborador| Realizar troca de escala |
+|Usuário do sistema  | Aceitar pedidos de troca de escala | Substituir colaborador que precisa da troca  |
+|Usuário do sistema  | Negar solicitações de troca de escala | Rejeitar pedidos de troca |
+|Usuário do sistema  | Visualizar solicitações de troca de escala | Aceitar ou rejeitar as solicitações |
+|Administrador       | Criar cadastro como gestor         | Conseguir acessar a plataforma         |
+|Administrador       | Alterar permissões                 | Permitir que outros perfis possam administrar contas |
+|Administrador       | Visualizar histórico de trocas realizadas       | Controlar as escalas|
+|Administrador       | Notificar trocas aceitas           | Acompanhar em tempo real as mudanças |
+|Administrador       | Editar informações cadastrais      | Manter as informações sempre atualizadas |
 
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
 
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
+<br><br>
+
 
 ## Modelagem do Processo de Negócio 
 
