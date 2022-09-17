@@ -56,7 +56,7 @@ public class TrocaiApplication {
                 Query query = new Query();
                 query.addCriteria(Criteria.where("email").is(f.getEmail()));
                 repo.findFuncionarioByEmail(f.getEmail()).ifPresentOrElse(
-                        x -> System.out.println("Funcionario com email : " + x.getEmail() + "já existe."),
+                        x -> System.out.println("Funcionario com email : " + x.getEmail() + " já existe."),
                         () -> {
                             System.out.println("Insertando funcionario" + f);
                             repo.insert(f);
