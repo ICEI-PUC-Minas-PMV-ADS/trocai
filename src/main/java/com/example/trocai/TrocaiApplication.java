@@ -20,7 +20,9 @@ public class TrocaiApplication {
 
     @Bean
     CommandLineRunner runner(FuncionarioRepository repo) {
+
         EscalaMensal escalaMensal = new EscalaMensal(2022, 9);
+
 
         return args -> {
             Funcionario paola = new Funcionario("Paola", "Bracho",
@@ -62,6 +64,8 @@ public class TrocaiApplication {
                             repo.insert(f);
                         });
             }
+
+            Restaurante restaurante = new Restaurante(funcionarioList, escalaMensal);
 
         };
 
