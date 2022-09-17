@@ -1,15 +1,12 @@
 package com.example.trocai.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.List;
 
 @Data
 @Document
-@AllArgsConstructor
 public class Funcionario {
 
 
@@ -20,14 +17,14 @@ public class Funcionario {
     private String nomeCompleto;
     private Turno turnoPrincipal;
     private Cargo cargo;
-
     private String email;
     private String telefone;
     private boolean isGestor;
-    private EscalaMensalTrabalhador escalaMensalTrabalhador;
-    private List<PedidoDeTroca> pedidoDeTroca;
+    private EscalaMensal escalaMensal;
+    private List<PedidoDeTroca> pedidosDeTroca;
 
-    public Funcionario(String nome, String sobreNome, Turno turnoPrincipal, Cargo cargo, String email, String telefone) {
+    public Funcionario(String nome, String sobreNome, Turno turnoPrincipal, Cargo cargo, String email, String telefone,
+                       EscalaMensal escalaMensal ) {
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.nomeCompleto = nome + " " + sobreNome;
@@ -35,6 +32,7 @@ public class Funcionario {
         this.cargo = cargo;
         this.email = email;
         this.telefone = telefone;
+        this.escalaMensal = escalaMensal;
 
     }
 }
