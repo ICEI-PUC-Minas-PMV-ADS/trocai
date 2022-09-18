@@ -55,6 +55,7 @@ function UserInfo({
           <Ionicons
             name={showPassword ? "eye-off-outline" : "eye"}
             size={eyeSize}
+            color={Colors.light["dark-blue"]}
           />
         </ShowPasswordPressable>
       </PasswordContainer>
@@ -81,6 +82,6 @@ const ShowPasswordPressable = styled.Pressable`
   border: none;
   background: transparent;
   font-size: 20px;
-  color: ${Colors.light["dark-gray"]};
+  color: ${Colors.light["dark-blue"]};
   transform: translateY(-${eyeSize / 2}px);
 `;
