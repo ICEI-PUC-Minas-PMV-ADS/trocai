@@ -1,8 +1,8 @@
-package com.example.trocai.models.services;
+package com.example.trocai.services;
 
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.Turno;
-import com.example.trocai.models.repositories.FuncionarioRepository;
+import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;

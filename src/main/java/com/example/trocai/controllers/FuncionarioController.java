@@ -1,7 +1,7 @@
-package com.example.trocai.models.controllers;
+package com.example.trocai.controllers;
 
 import com.example.trocai.models.Funcionario;
-import com.example.trocai.models.services.FuncionarioService;
+import com.example.trocai.services.FuncionarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

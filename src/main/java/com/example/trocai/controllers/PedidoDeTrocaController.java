@@ -1,7 +1,7 @@
-package com.example.trocai.models.controllers;
+package com.example.trocai.controllers;
 
 import com.example.trocai.models.PedidoDeTroca;
-import com.example.trocai.models.services.PedidoDeTrocaService;
+import com.example.trocai.services.PedidoDeTrocaService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
