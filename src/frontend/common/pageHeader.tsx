@@ -29,14 +29,11 @@ function PageHeader({ pageName, navigation, addOption }: IProps): JSX.Element {
   return (
     <StyledPageHeader>
       <StyledBackArrow onPress={() => navigation.goBack()}>
-        <AntDesign
-          size={40}
-          style={{ marginBottom: -3, paddingLeft: 5 }}
-          name="arrowleft"
-          color={Colors.light.red}
-        />
+        <AntDesign size={25} name="arrowleft" color={Colors.light.white} />
       </StyledBackArrow>
-      <StyledPageTitle style={{ color: "black" }}>{pageName}</StyledPageTitle>
+      <StyledPageTitle style={{ color: Colors.light.black }}>
+        {pageName}
+      </StyledPageTitle>
       {loggedUser?.result.isManager && addOption ? (
         <StyledAddButton onPress={() => navigation.navigate(addOption)}>
           <Entypo name="plus" size={50} color={Colors.light.yellow} />
@@ -48,7 +45,15 @@ function PageHeader({ pageName, navigation, addOption }: IProps): JSX.Element {
 
 export default PageHeader;
 const StyledBackArrow = styled.Pressable`
-  color: ${Colors.light.red};
+  background-color: ${Colors.light.red};
+  color: ${Colors.light.white};
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 10px; */
 `;
 
 const StyledPageHeader = styled.View`
@@ -61,7 +66,9 @@ const StyledPageHeader = styled.View`
 
 const StyledPageTitle = styled.Text`
   font-size: 25px;
+  line-height: 25px;
   margin-left: 15px;
+  font-weight: bold;
 `;
 
 const StyledAddButton = styled.Pressable`
