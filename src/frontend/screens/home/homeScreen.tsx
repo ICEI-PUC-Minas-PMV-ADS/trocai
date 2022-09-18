@@ -1,5 +1,4 @@
 import { Text, SafeAreaView } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import Lamp from "./lamp";
@@ -18,14 +17,13 @@ function HomePage(): JSX.Element {
           <Logo />
         </Banner>
         {loggedUser ? null : (
-          <>
-            <LampContainer>
-              <Lamp />
-              <Text>
-              Plataforma de empréstimo de bicicletas como alternativa de transporte nos grandes centros urbanos.
-              </Text>
-            </LampContainer>
-          </>
+          <LampContainer>
+            <Lamp />
+            <Text>
+              Plataforma de empréstimo de bicicletas como alternativa de
+              transporte nos grandes centros urbanos.
+            </Text>
+          </LampContainer>
         )}
         <OptionsList />
       </HomeScreenContainer>
@@ -67,4 +65,3 @@ const LampContainer = styled.View`
   margin-top: 40px;
   margin-bottom: 40px;
 `;
-const TimeContainer = styled(LampContainer)``;
