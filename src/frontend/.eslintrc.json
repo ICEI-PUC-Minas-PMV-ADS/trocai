@@ -1,0 +1,89 @@
+{
+    "overrides": [
+        {
+            // enable the rule specifically for TypeScript files
+            "files": [
+                "*.ts",
+                "*.tsx",
+                "*.d.ts"
+            ],
+            "env": {
+                "browser": true,
+                "es6": true
+            },
+            "extends": [
+                "airbnb",
+                "airbnb/hooks",
+                "airbnb-typescript",
+                "prettier"
+            ],
+            "parserOptions": {
+                "ecmaFeatures": {
+                    "experimentalObjectRestSpread": true,
+                    "jsx": true
+                },
+                "sourceType": "module",
+                "project": "./tsconfig.json"
+            },
+            "plugins": [
+                "react",
+                "prettier"
+            ],
+            "rules": {
+                "@typescript-eslint/no-use-before-define": "off",
+                "react/react-in-jsx-scope": "off",
+                "react/require-default-props": "off",
+                "react/function-component-definition": ["error",
+                    {
+                        "namedComponents": "function-declaration"
+                    }
+                ],
+                "func-names": "off",
+                "react/jsx-no-bind": "off",
+                "no-underscore-dangle": "off",
+                "prettier/prettier": [
+                    "error"
+                ]
+            }
+        },
+        {
+            "files": [
+                "server/**"
+            ],
+            "env": {
+                "node": true,
+                "es6": true
+            },
+            "extends": [
+                "airbnb",
+                "prettier"
+            ],
+            "parserOptions": {
+                "ecmaFeatures": {
+                    "experimentalObjectRestSpread": true
+                },
+                "sourceType": "module"
+            },
+            "plugins": [
+                "prettier"
+            ],
+            "rules": {
+                "prettier/prettier": [
+                    "error"
+                ],
+                "import/extensions": [
+                    "error",
+                    "always"
+                ],
+                "no-underscore-dangle": [
+                    "error",
+                    {
+                        "allow": [
+                            "_id"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
