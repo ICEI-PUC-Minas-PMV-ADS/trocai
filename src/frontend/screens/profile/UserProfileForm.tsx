@@ -10,12 +10,13 @@ import {
   SubmitPressableText,
   StyledInput,
   StyledLabel,
+  IconContainer,
 } from "../../common/styled";
 import UserInfo from "../../common/userInfo";
 import { createUser, updateUser } from "../../actions/userActions";
 import { RootStackScreenProps } from "../../types";
 import Colors from "../../constants/Colors";
-import dimensions, { defaultPadding } from "../../constants/Layout";
+import { defaultPadding } from "../../constants/Layout";
 
 export const OCASIONS = {
   SIGNUP: "Signup",
@@ -117,17 +118,29 @@ function UserProfileForm({
             />
             <Text>No</Text>
             <RadioButton
-              color={Colors.light.yellow}
+              color={Colors.light.black}
               value="no"
               status={!isManager ? "checked" : "unchecked"}
               onPress={() => setIsManager(!isManager)}
             />
           </View>
         </View>
-        <SubmitPressable onPress={() => handleSubmit()}>
+        <SubmitPressable
+          onPress={() => handleSubmit()}
+          style={{ alignSelf: "center" }}
+        >
           <SubmitPressableText>Save</SubmitPressableText>
-          <MaterialIcons size={30} name="save" color="white" />
+          <IconContainer>
+            <MaterialIcons size={20} name="save" color="white" />
+          </IconContainer>
         </SubmitPressable>
+
+        <StyledLoginLink
+          style={{ color: Colors.light["dark-blue"], fontSize: 15 }}
+          onPress={() => navigation.navigate("Login")}
+        >
+          Already have an account? Log in here!
+        </StyledLoginLink>
       </StyledScrollView>
     </StyledEditProfileScreen>
   );
@@ -141,7 +154,20 @@ const StyledIsManagerLabel = styled(StyledLabel)`
 
 const StyledEditProfileScreen = styled.SafeAreaView`
   padding: ${defaultPadding}px;
-  background-color: white;
-  height: ${dimensions.window.height}px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${Colors.light.white};
+`;
+
+const StyledLoginLink = styled.Text.attrs(() => ({
+  contentContainerStyle: {
+    alignItems: "center",
+  },
+}))`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+  width: 100%;
+  height: 100%;
 `;
 export default UserProfileForm;

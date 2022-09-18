@@ -9,6 +9,7 @@ import {
   SubmitPressableText,
   StyledForm,
   SubmitPressable,
+  IconContainer,
 } from "../../common/styled";
 import UserInfo from "../../common/userInfo";
 import Colors from "../../constants/Colors";
@@ -47,7 +48,13 @@ function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
           />
           <SubmitPressable style={{ marginTop: 50 }} onPress={handleLogin}>
             <SubmitPressableText>Login</SubmitPressableText>
-            <MaterialIcons size={30} name="login" color="white" />
+            <IconContainer>
+              <MaterialIcons
+                size={20}
+                name="login"
+                color={Colors.light.white}
+              />
+            </IconContainer>
           </SubmitPressable>
         </StyledForm>
 
@@ -88,7 +95,7 @@ const StyledLogin = styled.ScrollView`
   padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${Colors.light.white};
 `;
 
 const StyledLoginScreen = styled.KeyboardAvoidingView`
