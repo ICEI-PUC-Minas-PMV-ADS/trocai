@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DiaRestaurante extends Dia {
+public class DetalheEscalaDiariaRestaurante extends DetalheEscalaDiaria {
 
     private Funcionario gestorDoDia;
 
