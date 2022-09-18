@@ -20,12 +20,13 @@ export const StyledLabel = styled.Text`
 export const StyledInput = styled.TextInput`
   font-size: 16px;
   margin-top: 8px;
-  border: 1px solid ${Colors.light.gray};
-  background-color: rgb(222, 222, 222);
+  border: 1px solid ${Colors.light["dark-blue"]};
+  background-color: ${Colors.light.white};
   padding: 8px;
   height: 40px;
   width: 100%;
   border-radius: 6px;
+  color: ${Colors.light.black};
 `;
 //   // TODO: FIX INPUT STATES
 //   &:focus-visible,
@@ -55,6 +56,7 @@ export const StyledForm = styled.View`
   width: 100%;
   margin-top: 40px;
 `;
+
 export const FilterInput = styled.TextInput`
   width: 100%;
   height: 30px;
@@ -64,10 +66,10 @@ export const FilterInput = styled.TextInput`
   padding-left: 16px;
 `;
 export const SubmitPressable = styled.Pressable`
-  width: 100%;
+  width: fit-content;
   border-radius: 35px;
   margin-bottom: 20px;
-  background: ${Colors.light["dark-blue"]};
+  background: ${Colors.light["light-blue"]};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -77,9 +79,16 @@ export const SubmitPressable = styled.Pressable`
 `;
 
 export const SubmitPressableText = styled.Text`
-  color: white;
+  color: ${Colors.light.black};
   font-size: 20px;
   margin-right: 8px;
+  font-weight: bold;
+`;
+
+export const IconContainer = styled.View`
+  padding: 7px;
+  background-color: ${Colors.light.red};
+  border-radius: 50%;
 `;
 
 export const StyledFilterInput = styled.TextInput`
