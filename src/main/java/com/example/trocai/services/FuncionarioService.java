@@ -4,6 +4,8 @@ import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,12 +17,19 @@ import java.util.List;
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public List<Funcionario> getAllFuncionarios() {
         return funcionarioRepository.findAll();
     }
 
     public String createFuncionario(@RequestBody Funcionario funcionario){
+
+        funcionario.setSenha(bCryptPasswordEncoder.encode(funcionario.getSenha()));
         funcionarioRepository.save(funcionario);
+
         return "It works!!";
     }
 
