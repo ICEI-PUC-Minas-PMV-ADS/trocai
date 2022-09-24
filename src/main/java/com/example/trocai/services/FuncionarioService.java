@@ -5,16 +5,21 @@ import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class FuncionarioService {
+public class FuncionarioService  implements UserDetailsService {
 
     private final FuncionarioRepository funcionarioRepository;
 
@@ -39,5 +44,18 @@ public class FuncionarioService {
 //    }
     public List<Funcionario> getFuncionarioByTurnoPrincipal(@RequestParam String turno){
         return funcionarioRepository.getFuncionarioByTurnoPrincipal(Turno.valueOf(turno));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Funcionario user = funcionarioRepository.findFuncionarioByEmail(email).get();
+
+        if (user.getEmail().equals(email)) {
+            return new User(email, user.getSenha(),
+                    new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
     }
 }
