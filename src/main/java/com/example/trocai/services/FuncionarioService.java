@@ -49,13 +49,10 @@ public class FuncionarioService  implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Funcionario user = funcionarioRepository.findFuncionarioByEmail(email).get();
-
-        if (user.getEmail().equals(email)) {
-            return new User(email, user.getSenha(),
-                    new ArrayList<>());
-        } else {
-            throw new UsernameNotFoundException("User not found with email: " + email);
-        }
+        return funcionarioRepository.findFuncionarioByEmail(email)
+                .map(user -> {
+                    return new User(user.getEmail(), user.getSenha(), new ArrayList<>());
+                })
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 }

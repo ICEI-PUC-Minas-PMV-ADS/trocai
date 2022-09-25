@@ -26,6 +26,9 @@ public class Funcionario {
     private EscalaMensal escalaMensal;
     private List<PedidoDeTroca> pedidosDeTroca;
 
+    public Funcionario() {
+    }
+
     public Funcionario(String nome, String sobreNome, Turno turnoPrincipal, Cargo cargo, String email, String senha, String telefone,
                        EscalaMensal escalaMensal ) {
         this.nome = nome;
