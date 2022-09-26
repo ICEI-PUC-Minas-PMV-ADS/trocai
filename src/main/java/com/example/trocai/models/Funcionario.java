@@ -20,12 +20,16 @@ public class Funcionario {
     private Cargo cargo;
     @Indexed(sparse=true)
     private String email;
+    private String senha;
     private String telefone;
     private boolean isGestor;
     private EscalaMensal escalaMensal;
     private List<PedidoDeTroca> pedidosDeTroca;
 
-    public Funcionario(String nome, String sobreNome, Turno turnoPrincipal, Cargo cargo, String email, String telefone,
+    public Funcionario() {
+    }
+
+    public Funcionario(String nome, String sobreNome, Turno turnoPrincipal, Cargo cargo, String email, String senha, String telefone,
                        EscalaMensal escalaMensal ) {
         this.nome = nome;
         this.sobreNome = sobreNome;
@@ -33,6 +37,7 @@ public class Funcionario {
         this.turnoPrincipal = turnoPrincipal;
         this.cargo = cargo;
         this.email = email;
+        this.senha = senha;
         this.telefone = telefone;
         this.escalaMensal = escalaMensal;
 
