@@ -1,4 +1,4 @@
-package com.example.trocai.models.repositories;
+package com.example.trocai.repositories;
 
 import com.example.trocai.models.PedidoDeTroca;
 import org.springframework.data.mongodb.repository.MongoRepository;

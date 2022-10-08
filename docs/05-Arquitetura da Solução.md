@@ -6,6 +6,12 @@ A solução arquitetural definida para a aplicação baseia-se no modelo de arqu
 
 ![Arquitetura da Solução](img/arquitetura.drawio.png)
 
+</br>
+
+Para a implementação da API, adotamos o padrão de camadas represantado a seguir:
+
+![Arquitetura da Solução](img/arquitetura-api.drawio.png)
+
 <!-- ## Diagrama de Classes
 
 O diagrama de classes ilustra graficamente como será a estrutura do software, e como cada uma das classes da sua estrutura estarão interligadas. Essas classes servem de modelo para materializar os objetos que executarão na memória.

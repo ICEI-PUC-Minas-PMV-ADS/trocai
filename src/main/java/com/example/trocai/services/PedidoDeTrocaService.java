@@ -1,7 +1,7 @@
-package com.example.trocai.models.services;
+package com.example.trocai.services;
 
 import com.example.trocai.models.PedidoDeTroca;
-import com.example.trocai.models.repositories.PedidoDeTrocaRepository;
+import com.example.trocai.repositories.PedidoDeTrocaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.trocai.models.repositories;
+package com.example.trocai.repositories;
 
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.Turno;
