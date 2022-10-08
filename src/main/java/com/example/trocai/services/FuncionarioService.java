@@ -35,7 +35,8 @@ public class FuncionarioService  implements UserDetailsService {
         funcionario.setSenha(bCryptPasswordEncoder.encode(funcionario.getSenha()));
         funcionarioRepository.save(funcionario);
 
-        return "It works!!";
+        String response = "Funcionario: " + funcionario.getNome() +", id: '" + funcionario.getId()  + "' was successfully created";
+        return response;
     }
 
 //    public List<Funcionario> getFuncionarioByTurnoLivre(@RequestParam int day, int month, int year, String turno){

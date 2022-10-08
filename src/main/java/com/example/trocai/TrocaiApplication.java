@@ -68,8 +68,6 @@ public class TrocaiApplication {
                         });
             }
 
-            Restaurante restaurante = new Restaurante(funcionarioList, escalaMensal);
-
         };
 
 
