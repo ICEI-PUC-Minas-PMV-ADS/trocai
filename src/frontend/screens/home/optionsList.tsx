@@ -10,10 +10,11 @@ import Colors from "../../constants/Colors";
 import { checkIfTokenIsExpired } from "../../services/loggedInServices";
 import ConfirmationDialog from "../../common/confirmationDialog";
 import { MAIN_ROUTES } from "../../utils";
+import { RootStackParamList } from "../../types";
 type AntDesignNames = React.ComponentProps<typeof AntDesign>['name'];
 
 interface ItemProps {
-  to: string;
+  to: keyof RootStackParamList;
   text: string;
   icon: AntDesignNames;
 }
@@ -58,21 +59,21 @@ function OptionsList(): JSX.Element {
   }
 
   let listData: ItemProps[] = [
-    { text: "Meu Perfil ", to: MAIN_ROUTES.profile, icon: "user" },
-    { text: "Turnos disponíveis ", to: MAIN_ROUTES.freeShifts, icon: "calendar" },
+    { text: "Meu Perfil ", to: MAIN_ROUTES.Profile, icon: "user" },
+    { text: "Turnos disponíveis ", to: MAIN_ROUTES.FreeShifts, icon: "calendar" },
     {
       text: "Solicitações de troca ",
-      to: MAIN_ROUTES.fromOthers,
+      to: MAIN_ROUTES.RequestFromOthers,
       icon: "export2",
     },
     {
       text: "Meus pedidos de troca",
-      to: MAIN_ROUTES.myRequests,
+      to: MAIN_ROUTES.MyRequests,
       icon: "export",
     },
     {
       text: "Criar pedido de troca",
-      to: MAIN_ROUTES.newRequest,
+      to: MAIN_ROUTES.NewRequest,
       icon: "addusergroup",
     },
   ];
