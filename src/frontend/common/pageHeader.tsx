@@ -17,6 +17,7 @@ interface IProps {
     | "UsersList"
     | "Profile"
     | "SelectedUser"
+    | "NewRequest"
   >;
   addOption?: "AddUser";
 }
