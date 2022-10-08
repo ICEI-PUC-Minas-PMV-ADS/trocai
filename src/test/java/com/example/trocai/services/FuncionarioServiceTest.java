@@ -5,7 +5,6 @@ import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,7 +49,7 @@ public class FuncionarioServiceTest {
     @Test
     public void shouldCreateFuncionario() {
         when(bCryptPasswordEncoder.encode(funcionario.getSenha())).thenReturn("#256488hdgdggd76464");
-        assertEquals( "It works!!", funcionarioService.createFuncionario(funcionario));
+        assertEquals( "Funcionario: Carl, id: 'null' was successfully created", funcionarioService.createFuncionario(funcionario));
     }
 
     @Test
