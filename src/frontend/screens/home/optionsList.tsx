@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { View } from "react-native";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../../reducers/loggedUser";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../../reducers/selectedUserReducer";
 import Colors from "../../constants/Colors";
 import { checkIfTokenIsExpired } from "../../services/loggedInServices";
 import ConfirmationDialog from "../../common/confirmationDialog";
+import { MAIN_ROUTES } from "../../utils";
+type AntDesignNames = React.ComponentProps<typeof AntDesign>['name'];
 
 interface ItemProps {
   to: string;
   text: string;
-  icon: string;
+  icon: AntDesignNames;
 }
 function OptionsList(): JSX.Element {
   const [showDialog, setShowDialog] = useState(false);
@@ -56,17 +58,28 @@ function OptionsList(): JSX.Element {
   }
 
   let listData: ItemProps[] = [
-    { text: "My Profile ", to: "Profile", icon: "person" },
+    { text: "Meu Perfil ", to: MAIN_ROUTES.profile, icon: "user" },
+    { text: "Turnos disponíveis ", to: MAIN_ROUTES.freeShifts, icon: "calendar" },
+    {
+      text: "Solicitações de troca ",
+      to: MAIN_ROUTES.fromOthers,
+      icon: "export2",
+    },
+    {
+      text: "Meus pedidos de troca",
+      to: MAIN_ROUTES.myRequests,
+      icon: "export",
+    },
+    {
+      text: "Criar pedido de troca",
+      to: MAIN_ROUTES.newRequest,
+      icon: "addusergroup",
+    },
   ];
 
   if (!userIsLogged) {
     listData = [{ text: "Login", to: "Login", icon: "login" }];
-  } else if (userIsManager) {
-    listData.push(
-      { text: "Users", to: "UsersList", icon: "person-search" },
-      { text: "Add new User", to: "AddUser", icon: "add" }
-    );
-  }
+  } 
   return (
     <View style={{ marginBottom: 50 }}>
       {listData.map((item) => (
@@ -75,7 +88,7 @@ function OptionsList(): JSX.Element {
       {user && (
         <OptionListButton onPress={() => setShowDialog(true)}>
           <ButtonIcon>
-            <MaterialIcons size={40} name="logout" color="white" />
+            <AntDesign size={40} name="logout" color="white" />
           </ButtonIcon>
           <ButtonText>Logout </ButtonText>
         </OptionListButton>
@@ -97,7 +110,7 @@ function OptionListItem({ item }: { item: ItemProps }) {
   return (
     <OptionListButton onPress={() => navigation.navigate(item.to)}>
       <ButtonIcon>
-        <MaterialIcons size={40} name={item.icon} color="white" />
+        <AntDesign size={40} name={item.icon} color="white" />
       </ButtonIcon>
       <ButtonText>{item.text}</ButtonText>
     </OptionListButton>
