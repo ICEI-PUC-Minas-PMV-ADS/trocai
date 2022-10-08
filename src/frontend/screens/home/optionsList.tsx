@@ -110,7 +110,7 @@ OptionsList.defaultProps = {
 const OptionListButton = styled.Pressable`
   width: 300px;
   padding: 20px;
-  background: ${Colors.light.yellow};
+  background: ${Colors.light["light-blue"]};
   border-radius: 8px;
   display: flex;
   flex-direction: row;
