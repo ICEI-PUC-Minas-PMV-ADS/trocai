@@ -5,6 +5,7 @@ import Lamp from "./lamp";
 import OptionsList from "./optionsList";
 import dimensions from "../../constants/Layout";
 import Colors from "../../constants/Colors";
+import LogoWithText from "../img/logoWithText";
 
 function HomePage(): JSX.Element {
   const { loggedUser } = useSelector(
@@ -17,6 +18,9 @@ function HomePage(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <HomeScreenContainer>
+        <Header>
+          <LogoWithText textColor={Colors.light.white} height={40} />
+        </Header>
         <ImageContainer>
           <HomeImg source={homeImg} />
         </ImageContainer>
@@ -24,8 +28,8 @@ function HomePage(): JSX.Element {
           <LampContainer>
             <Lamp />
             <Text>
-              Plataforma de empréstimo de bicicletas como alternativa de
-              transporte nos grandes centros urbanos.
+              Plataforma de troca de turnos para facilitar a vida dos gestores
+              de equipes.
             </Text>
           </LampContainer>
         )}
@@ -57,6 +61,16 @@ const LampContainer = styled.View`
   flex-direction: row;
   margin-top: 40px;
   margin-bottom: 40px;
+`;
+
+const Header = styled.View`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: ${Colors.light["light-blue"]};
 `;
 
 const ImageContainer = styled.View`
