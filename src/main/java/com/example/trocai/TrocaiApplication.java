@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@EnableSwagger2
 public class TrocaiApplication {
 
     public static void main(String[] args) {
@@ -77,4 +79,5 @@ public class TrocaiApplication {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
