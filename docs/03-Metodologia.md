@@ -130,7 +130,7 @@ A primeira parte a se pensar são os estágios (stages) das tarefas (jobs). Os e
 Em suma, o  Gitlab é fácil escalar os runners, há uma execução paralela de tarefas em diferentes fases do pipeline, com o gitlab, você pode contratar todos os aspectos do trabalho com repositórios git, incluindo branches com códigos.
 
 
-#### Implementação
+#### Implementação e hospedagem do projeto
 
 - Para criar nosso repositório, na página inicial clicamos no ícones Novo Projeto.
 
