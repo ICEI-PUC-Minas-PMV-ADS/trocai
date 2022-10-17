@@ -39,6 +39,7 @@
                     }
                 ],
                 "func-names": "off",
+                "import/no-named-as-default": "off",
                 "react/jsx-no-bind": "off",
                 "no-underscore-dangle": "off",
                 "prettier/prettier": [
