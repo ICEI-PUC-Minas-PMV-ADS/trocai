@@ -23,6 +23,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Login: "/Login",
       Signup: "/Signup",
       NewRequest: "/NewRequest",
+      RequestFromOthers: "/RequestFromOthers",
       Profile: "/Profile",
       NotFound: "*",
     },

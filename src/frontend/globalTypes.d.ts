@@ -59,3 +59,9 @@ interface ICrudReducerAction {
   type: string;
   payload: CrudReducerPossibleTypes[];
 }
+
+type RequestObj = {
+  from: string;
+  date: number;
+  id: string;
+};
