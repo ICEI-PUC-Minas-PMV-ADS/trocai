@@ -20,7 +20,7 @@ function IncomingRequestList({
     { from: "Mariah carey", date: new Date().getTime(), id: "2" },
     { from: "Marcos lime", date: new Date().getTime(), id: "3" },
   ];
-  const renderItem: ListRenderItem<RequestObj> = ({ item }) => (
+  const renderItem: ListRenderItem<IncomingRequestObj> = ({ item }) => (
     <Item
       from={item.from}
       date={item.date}
@@ -62,7 +62,7 @@ function Item({
   date,
   id,
   setShowDialog,
-}: RequestObj & {
+}: IncomingRequestObj & {
   setShowDialog: Dispatch<
     SetStateAction<{ id: string; action: "accept" | "refuse" } | undefined>
   >;
