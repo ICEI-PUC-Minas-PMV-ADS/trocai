@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableSwagger2
+@EnableMongoRepositories
 public class TrocaiApplication {
 
     public static void main(String[] args) {
