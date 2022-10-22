@@ -65,3 +65,35 @@ type IncomingRequestObj = {
   date: number;
   id: string;
 };
+
+type OutgoingRequestObj = {
+  to: string;
+  date: number;
+  id: string;
+  status: "confirmado" | "recusado" | "pendente";
+};
+
+type Employee = {
+  cargo: string;
+  Enum: number[];
+  email: string;
+  gestor: boolean;
+  id: string;
+  nome: string;
+  nomeCompleto: string;
+  pedidosDeTroca: ChangeRequest[];
+  senha: string;
+  sobreNome: string;
+  telefone: string;
+  turnoPrincipal: string;
+};
+
+type ChangeRequest = {
+  dia: string;
+  fromFuncionario: Employee;
+  id: string;
+  toFuncionario: Employee;
+  turno: Shift;
+};
+
+type Shift = "manha" | "tarde" | "noite";
