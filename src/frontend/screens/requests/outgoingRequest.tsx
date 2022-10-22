@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem } from "react-native";
 import moment from "moment";
@@ -6,37 +6,24 @@ import { RootStackScreenProps } from "../../types";
 import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
-import { SubmitPressableText } from "../../common/styled";
+import { NoContentFoundText, SubmitPressableText } from "../../common/styled";
 import Colors from "../../constants/Colors";
+import { fetchAllChangeRequest } from "../../services/api";
 
 function OutgoingRequestList({
   navigation,
 }: RootStackScreenProps<"RequestFromOthers">): JSX.Element {
   const [showDialog, setShowDialog] = useState<{ id: string } | undefined>();
-  const requestsArray: OutgoingRequestObj[] = [
-    {
-      to: "leandro borges",
-      date: new Date().getTime(),
-      id: "1",
-      status: "confirmado",
-    },
-    {
-      to: "Mariah carey",
-      date: new Date().getTime(),
-      id: "2",
-      status: "recusado",
-    },
-    {
-      to: "Marcos lime",
-      date: new Date().getTime(),
-      id: "3",
-      status: "pendente",
-    },
-  ];
-  const renderItem: ListRenderItem<OutgoingRequestObj> = ({ item }) => (
+  const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
+  useEffect(() => {
+    fetchAllChangeRequest().then((res) => setChangeRequests(res.data));
+  }, []);
+
+  console.log(changeRequests);
+  const renderItem: ListRenderItem<ChangeRequest> = ({ item }) => (
     <Item
-      to={item.to}
-      date={item.date}
+      to={item.toFuncionario}
+      date={item.dia}
       id={item.id}
       status={item.status}
       setShowDialog={setShowDialog}
@@ -51,12 +38,15 @@ function OutgoingRequestList({
   return (
     <StyledSelectedBike>
       <PageHeader pageName="List da solicitações" navigation={navigation} />
-
-      <FlatList
-        data={requestsArray}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      {changeRequests.length ? (
+        <FlatList
+          data={changeRequests}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <NoContentFoundText>Sem solicitações</NoContentFoundText>
+      )}
       {showDialog ? (
         <ConfirmationDialog
           onCancel={() => setShowDialog(undefined)}
@@ -74,7 +64,11 @@ function Item({
   id,
   status,
   setShowDialog,
-}: OutgoingRequestObj & {
+}: {
+  to: Employee;
+  date: string;
+  id: string;
+  status: string;
   setShowDialog: Dispatch<SetStateAction<{ id: string } | undefined>>;
 }) {
   return (
