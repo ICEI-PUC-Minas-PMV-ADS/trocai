@@ -7,7 +7,16 @@ const API = axios.create({
   baseURL: "https://bike-rental-manager.herokuapp.com/",
 });
 
-API.interceptors.request.use(async (req: AxiosRequestConfig) => {
+const TROCAI_PATHS = {
+  employees: "api/v1/funcionarios",
+  LOGIN: "api/v1/login",
+};
+
+const TROCAI_API = axios.create({
+  baseURL: "https://trocai.azurewebsites.net/",
+});
+
+TROCAI_API.interceptors.request.use(async (req: AxiosRequestConfig) => {
   const store = reduxStore.getState();
   const profile = store.loggedUser;
   if (profile) {
@@ -27,29 +36,23 @@ export const createUser = (
   newUser: ISignupParams
 ): Promise<{ data: UserObject }> =>
   API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser);
+
 export const loginUser = async (
   user: ILoginParams
 ): Promise<{ data: UserObject }> =>
-  API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user);
+  TROCAI_API.post(`${TROCAI_PATHS.LOGIN}`, user);
+
 export const updateUser = (
   updateduser: IUpdateUserParams
 ): Promise<IUserResponse> =>
   API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser);
-  
+
 export const deleteUser = (userId: string): Promise<Response> =>
   API.delete(`${API_PATHS.USER}/${userId}`);
 
 interface IEmployeeResponse {
   data: Employee[];
 }
-
-const TROCAI_PATHS = {
-  employees: "api/v1/funcionarios",
-};
-
-const TROCAI_API = axios.create({
-  baseURL: "https://trocai.azurewebsites.net/",
-});
 
 export const fetchEmployees = (): Promise<IEmployeeResponse> =>
   TROCAI_API.get(TROCAI_PATHS.employees);
