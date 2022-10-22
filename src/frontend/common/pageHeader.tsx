@@ -30,7 +30,7 @@ function PageHeader({ pageName, navigation, addOption }: IProps): JSX.Element {
 
   return (
     <StyledPageHeader>
-      <StyledBackArrow onPress={() => navigation.goBack()}>
+      <StyledBackArrow onPress={() => navigation.navigate("Root")}>
         <AntDesign size={25} name="arrowleft" color={Colors.light.white} />
       </StyledBackArrow>
       <StyledPageTitle style={{ color: Colors.light.black }}>
