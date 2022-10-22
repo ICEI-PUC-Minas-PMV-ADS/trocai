@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { Platform, View } from "react-native";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Platform, View, FlatList, ListRenderItem } from "react-native";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
@@ -17,6 +17,8 @@ import Colors from "../../constants/Colors";
 import dimensions, { defaultPadding } from "../../constants/Layout";
 import { RootStackScreenProps } from "../../types";
 import WebPicker from "./webPicker";
+import { fetchEmployees } from "../../services/api";
+import ConfirmationDialog from "../../common/confirmationDialog";
 
 function NewRequest({
   navigation,
@@ -24,12 +26,24 @@ function NewRequest({
   const [requestRecipient, setRequestRecipient] = useState(``);
   const [openStart, setOpenStart] = useState(false);
   const [timestamp, setTimestamp] = useState(new Date().getTime());
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee>();
+  useEffect(() => {
+    // const { data } = await fetchEmployees();
 
+    fetchEmployees().then((res) => setEmployees(res.data));
+  }, []);
+
+  console.log(employees);
   function handleNewRequest(): void {
-    console.log("submit obj");
+    console.log("submit pedido de troca para", selectedEmployee);
+    setSelectedEmployee();
   }
   // precisa ter um request de usuários
 
+  const renderItem: ListRenderItem<Employee> = ({ item }) => (
+    <Item employee={item} setShowDialog={setSelectedEmployee} />
+  );
   return (
     <StyledNewRequestScreen
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -46,7 +60,7 @@ function NewRequest({
           />
           {Platform.OS === "web" ? (
             <WebPicker
-              currentValue={moment(timestamp).format("YYYY-MM-DDTHH:mm")}
+              currentValue={moment(timestamp).format("YYYY-MM-DD")}
               onChange={(value: string) => {
                 setTimestamp(new Date(value).getTime());
               }}
@@ -89,8 +103,42 @@ function NewRequest({
             </IconContainer>
           </SubmitPressable>
         </StyledForm>
+
+        <FlatList
+          data={employees}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </StyledNewRequest>
+      {selectedEmployee ? (
+        <ConfirmationDialog
+          onCancel={() => setSelectedEmployee(undefined)}
+          onDelete={() => handleNewRequest()}
+          text={`request change with ${selectedEmployee.nomeCompleto}`}
+          type="submit"
+        />
+      ) : null}
     </StyledNewRequestScreen>
+  );
+}
+
+function Item({
+  employee,
+  setShowDialog,
+}: {
+  employee: Employee;
+  setShowDialog: Dispatch<SetStateAction<Employee | undefined>>;
+}) {
+  return (
+    <ItemContainer>
+      <ItemText>{employee.nomeCompleto}</ItemText>
+      <ItemText>{employee.turnoPrincipal}</ItemText>
+      <ItemAccept>
+        <PressableText onPress={() => setShowDialog(employee)}>
+          solicitar
+        </PressableText>
+      </ItemAccept>
+    </ItemContainer>
   );
 }
 
@@ -128,4 +176,39 @@ const StyledDates = styled.Text`
   color: ${Colors.light["dark-gray"]};
   font-size: 16px;
   border: none;
+`;
+
+const ItemContainer = styled.View`
+  padding: 20px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  gap: 20px;
+  align-items: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84;
+  elevation: 5;
+`;
+
+const ItemText = styled.Text`
+  text-transform: capitalize;
+`;
+
+const ItemAccept = styled.Pressable`
+  background-color: ${Colors.light["dark-blue"]};
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+`;
+
+const PressableText = styled(SubmitPressableText)`
+  color: white;
+  margin: 0;
 `;
