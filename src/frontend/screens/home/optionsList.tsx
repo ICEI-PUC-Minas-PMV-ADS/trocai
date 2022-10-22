@@ -60,7 +60,6 @@ function OptionsList(): JSX.Element {
 
   let listData: ItemProps[] = [
     { text: "Meu Perfil ", to: MAIN_ROUTES.Profile, icon: "user" },
-    { text: "Turnos disponíveis ", to: MAIN_ROUTES.FreeShifts, icon: "calendar" },
     {
       text: "Solicitações de troca ",
       to: MAIN_ROUTES.RequestFromOthers,
