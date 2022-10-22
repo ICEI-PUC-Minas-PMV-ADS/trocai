@@ -35,5 +35,25 @@ export const updateUser = (
   updateduser: IUpdateUserParams
 ): Promise<IUserResponse> =>
   API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser);
+  
 export const deleteUser = (userId: string): Promise<Response> =>
   API.delete(`${API_PATHS.USER}/${userId}`);
+
+interface IEmployeeResponse {
+  data: Employee[];
+}
+
+const TROCAI_PATHS = {
+  employees: "api/v1/funcionarios",
+};
+
+const TROCAI_API = axios.create({
+  baseURL: "https://trocai.azurewebsites.net/",
+});
+
+export const fetchEmployees = (): Promise<IEmployeeResponse> =>
+  TROCAI_API.get(TROCAI_PATHS.employees);
+
+export const fetchEmployeesByShift = (
+  shift: Shift
+): Promise<IEmployeeResponse> => TROCAI_API.get(TROCAI_PATHS.employees, shift);
