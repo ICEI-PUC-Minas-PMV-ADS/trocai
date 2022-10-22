@@ -103,3 +103,10 @@ export const StyledFilterInput = styled.TextInput`
   flex-grow: 1;
   border-radius: 60px;
 `;
+
+export const NoContentFoundText = styled.Text`
+  color: ${Colors.light.black};
+  font-size: 30px;
+  margin-top: 30px;
+  font-weight: bold;
+`;
