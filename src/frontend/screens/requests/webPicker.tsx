@@ -12,7 +12,7 @@ const WebPicker = ({ style, currentValue, onChange }: WebPickerProps) =>
     value: currentValue,
     style,
     onChange: (event: any) => onChange(event.target.value),
-    type: "datetime-local",
+    type: "date",
   });
 
 export default WebPicker;
