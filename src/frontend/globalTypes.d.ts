@@ -94,6 +94,7 @@ type ChangeRequest = {
   id: string;
   toFuncionario: Employee;
   turno: Shift;
+  status: string;
 };
 
 type Shift = "MANHA" | "TARDE" | "NOITE";
