@@ -96,4 +96,4 @@ type ChangeRequest = {
   turno: Shift;
 };
 
-type Shift = "manha" | "tarde" | "noite";
+type Shift = "MANHA" | "TARDE" | "NOITE";
