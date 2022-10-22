@@ -8,12 +8,14 @@ interface Props {
   onDelete: () => void;
   onCancel: () => void;
   text?: string;
+  type?: "submit" | "delete";
 }
 
 function ConfirmationDialog({
   onDelete,
   onCancel,
   text = "",
+  type = "delete",
 }: Props): JSX.Element {
   return (
     <StyledConfirmationDialog
@@ -26,12 +28,25 @@ function ConfirmationDialog({
         <StyledBackdrop />
         <StyledDialog>
           <StyledText>Are you sure you want to {text}?</StyledText>
-          <Pressable onPress={onDelete} accessibilityLabel="Yes, confirm">
-            <StyledConfirmText>Yes</StyledConfirmText>
-          </Pressable>
-          <Pressable onPress={onCancel} accessibilityLabel="Cancel">
-            <StyledCancelText>Cancel</StyledCancelText>
-          </Pressable>
+          {type === "submit" ? (
+            <>
+              <Pressable onPress={onDelete} accessibilityLabel="Yes, confirm">
+                <StyledCancelText>Yes</StyledCancelText>
+              </Pressable>
+              <Pressable onPress={onCancel} accessibilityLabel="Cancel">
+                <StyledConfirmText>Cancel</StyledConfirmText>
+              </Pressable>
+            </>
+          ) : (
+            <>
+              <Pressable onPress={onDelete} accessibilityLabel="Yes, confirm">
+                <StyledConfirmText>Yes</StyledConfirmText>
+              </Pressable>
+              <Pressable onPress={onCancel} accessibilityLabel="Cancel">
+                <StyledCancelText>Cancel</StyledCancelText>
+              </Pressable>
+            </>
+          )}
         </StyledDialog>
       </StyledContainer>
     </StyledConfirmationDialog>
