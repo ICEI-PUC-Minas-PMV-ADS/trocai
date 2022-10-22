@@ -4,14 +4,12 @@ import { Platform, View, FlatList, ListRenderItem } from "react-native";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { RadioButton } from "react-native-paper";
 import PageHeader from "../../common/pageHeader";
 import {
   SubmitPressableText,
-  StyledForm,
   SubmitPressable,
   IconContainer,
-  StyledLabel,
-  StyledInput,
 } from "../../common/styled";
 import Colors from "../../constants/Colors";
 import dimensions, { defaultPadding } from "../../constants/Layout";
@@ -23,22 +21,27 @@ import ConfirmationDialog from "../../common/confirmationDialog";
 function NewRequest({
   navigation,
 }: RootStackScreenProps<"NewRequest">): JSX.Element {
-  const [requestRecipient, setRequestRecipient] = useState(``);
   const [openStart, setOpenStart] = useState(false);
   const [timestamp, setTimestamp] = useState(new Date().getTime());
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>();
+  const [selectedShift, setSelectedShift] = useState<Shift>("MANHA");
   useEffect(() => {
     // const { data } = await fetchEmployees();
 
-    fetchEmployees().then((res) => setEmployees(res.data));
-  }, []);
+    fetchEmployees().then((res) =>
+      setEmployees(
+        res.data.filter((employee) => employee.turnoPrincipal === selectedShift)
+      )
+    );
+  }, [selectedShift]);
 
   console.log(employees);
   function handleNewRequest(): void {
     console.log("submit pedido de troca para", selectedEmployee);
     setSelectedEmployee(undefined);
   }
+
   // precisa ter um request de usuários
 
   const renderItem: ListRenderItem<Employee> = ({ item }) => (
@@ -51,13 +54,33 @@ function NewRequest({
     >
       <StyledNewRequest>
         <PageHeader pageName="Nova Solicitação" navigation={navigation} />
-        <StyledForm>
-          <StyledLabel>Nome do funcionário</StyledLabel>
-          <StyledInput
-            textContentType="name"
-            value={requestRecipient}
-            onChangeText={(value) => setRequestRecipient(value)}
-          />
+        <StyledNewRequestForm>
+          <StyledRadios>
+            <StyledRadioContainer>
+              <RadioButton
+                value="MANHA"
+                status={selectedShift === "MANHA" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("MANHA")}
+              />
+              <StyledRadioLabel>Manhã</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer>
+              <RadioButton
+                value="TARDE"
+                status={selectedShift === "TARDE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("TARDE")}
+              />
+              <StyledRadioLabel>Tarde</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer>
+              <RadioButton
+                value="NOITE"
+                status={selectedShift === "NOITE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("NOITE")}
+              />
+              <StyledRadioLabel>Noite</StyledRadioLabel>
+            </StyledRadioContainer>
+          </StyledRadios>
           {Platform.OS === "web" ? (
             <WebPicker
               currentValue={moment(timestamp).format("YYYY-MM-DD")}
@@ -93,7 +116,7 @@ function NewRequest({
             </View>
           )}
           <SubmitPressable style={{ marginTop: 50 }} onPress={handleNewRequest}>
-            <SubmitPressableText>Solicitar Troca</SubmitPressableText>
+            <SubmitPressableText>Procurar</SubmitPressableText>
             <IconContainer>
               <MaterialCommunityIcons
                 name="calendar-sync-outline"
@@ -102,7 +125,7 @@ function NewRequest({
               />
             </IconContainer>
           </SubmitPressable>
-        </StyledForm>
+        </StyledNewRequestForm>
 
         <FlatList
           data={employees}
@@ -149,6 +172,22 @@ const StyledNewRequest = styled.ScrollView`
   display: flex;
   flex-direction: column;
   background-color: ${Colors.light.white};
+`;
+const StyledNewRequestForm = styled.View`
+  display: flex;
+  flex-direction: row;
+`;
+const StyledRadios = styled.View`
+  display: flex;
+  flex-direction: row;
+`;
+const StyledRadioContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const StyledRadioLabel = styled.Text`
+  color: ${Colors.light.black};
 `;
 
 const StyledNewRequestScreen = styled.KeyboardAvoidingView`
