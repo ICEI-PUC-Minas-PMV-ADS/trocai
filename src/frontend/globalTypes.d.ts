@@ -13,7 +13,7 @@ interface LogInResponse {
 }
 interface ILoginParams {
   email: string;
-  password: string;
+  senha: string;
 }
 
 interface ISignupParams extends ILoginParams {

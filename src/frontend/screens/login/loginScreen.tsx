@@ -24,7 +24,7 @@ function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
   function handleLogin(): void {
     dispatch(
       loginUser(
-        { email: email.toLowerCase(), password },
+        { email: email.toLowerCase(), senha: password },
         navigation,
         setUserNotFound
       )
