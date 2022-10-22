@@ -37,7 +37,7 @@ function NewRequest({
   console.log(employees);
   function handleNewRequest(): void {
     console.log("submit pedido de troca para", selectedEmployee);
-    setSelectedEmployee();
+    setSelectedEmployee(undefined);
   }
   // precisa ter um request de usuários
 
