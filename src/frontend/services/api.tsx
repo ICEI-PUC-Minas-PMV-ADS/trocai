@@ -10,6 +10,7 @@ const API = axios.create({
 const TROCAI_PATHS = {
   employees: "api/v1/funcionarios",
   LOGIN: "api/v1/login",
+  EMPLOYEE_BY_SHIFT: "api/v1/funcionarios/turno",
 };
 
 const TROCAI_API = axios.create({
@@ -59,4 +60,5 @@ export const fetchEmployees = (): Promise<IEmployeeResponse> =>
 
 export const fetchEmployeesByShift = (
   shift: Shift
-): Promise<IEmployeeResponse> => TROCAI_API.get(TROCAI_PATHS.employees, shift);
+): Promise<IEmployeeResponse> =>
+  TROCAI_API.get(TROCAI_PATHS.EMPLOYEE_BY_SHIFT, { params: { turno: shift } });
