@@ -1,13 +1,13 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem } from "react-native";
-import moment from "moment";
 import { RootStackScreenProps } from "../../types";
 import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
-import { SubmitPressableText } from "../../common/styled";
+import { NoContentFoundText, SubmitPressableText } from "../../common/styled";
 import Colors from "../../constants/Colors";
+import { fetchAllChangeRequest } from "../../services/api";
 
 function IncomingRequestList({
   navigation,
@@ -15,15 +15,17 @@ function IncomingRequestList({
   const [showDialog, setShowDialog] = useState<
     { id: string; action: "accept" | "refuse" } | undefined
   >();
-  const requestsArray = [
-    { from: "leandro borges", date: new Date().getTime(), id: "1" },
-    { from: "Mariah carey", date: new Date().getTime(), id: "2" },
-    { from: "Marcos lime", date: new Date().getTime(), id: "3" },
-  ];
-  const renderItem: ListRenderItem<IncomingRequestObj> = ({ item }) => (
+  const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
+  useEffect(() => {
+    fetchAllChangeRequest().then((res) => setChangeRequests(res.data));
+  }, []);
+
+  console.log(changeRequests);
+
+  const renderItem: ListRenderItem<ChangeRequest> = ({ item }) => (
     <Item
-      from={item.from}
-      date={item.date}
+      from={item.fromFuncionario}
+      date={item.dia}
       id={item.id}
       setShowDialog={setShowDialog}
     />
@@ -40,12 +42,16 @@ function IncomingRequestList({
   return (
     <StyledSelectedBike>
       <PageHeader pageName="List da solicitações" navigation={navigation} />
+      {changeRequests.length ? (
+        <FlatList
+          data={changeRequests}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <NoContentFoundText>Sem solicitações</NoContentFoundText>
+      )}
 
-      <FlatList
-        data={requestsArray}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
       {showDialog ? (
         <ConfirmationDialog
           onCancel={() => setShowDialog(undefined)}
@@ -62,15 +68,18 @@ function Item({
   date,
   id,
   setShowDialog,
-}: IncomingRequestObj & {
+}: {
+  from: Employee;
+  date: string;
+  id: string;
   setShowDialog: Dispatch<
     SetStateAction<{ id: string; action: "accept" | "refuse" } | undefined>
   >;
 }) {
   return (
     <ItemContainer>
-      <ItemText>{from}</ItemText>
-      <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
+      <ItemText>{from?.nomeCompleto}</ItemText>
+      <ItemText>{date}</ItemText>
       <ItemAccept>
         <PressableText onPress={() => setShowDialog({ id, action: "accept" })}>
           Aceitar
