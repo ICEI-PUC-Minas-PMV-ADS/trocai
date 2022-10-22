@@ -8,6 +8,7 @@ import HomePage from "../screens/home/homeScreen";
 import UserProfileForm from "../screens/profile/UserProfileForm";
 import NewRequest from "../screens/requests/newRequest";
 import IncomingRequestList from "../screens/requests/incomingRequestList";
+import OutgoingRequestList from "../screens/requests/outgoingRequest";
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -51,6 +52,11 @@ function RootNavigator() {
       <Stack.Screen
         name="RequestFromOthers"
         component={IncomingRequestList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MyRequests"
+        component={OutgoingRequestList}
         options={{ headerShown: false }}
       />
       <Stack.Screen

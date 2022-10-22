@@ -24,6 +24,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Signup: "/Signup",
       NewRequest: "/NewRequest",
       RequestFromOthers: "/RequestFromOthers",
+      MyRequests: "/MyRequests",
       Profile: "/Profile",
       NotFound: "*",
     },
