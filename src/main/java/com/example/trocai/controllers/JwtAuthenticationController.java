@@ -32,7 +32,7 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new TokenDTO(token));
+        return ResponseEntity.ok(new TokenDTO(jwtTokenUtil.getUsernameFromToken(token), token));
     }
 
     private void authenticate(String username, String password) throws Exception {
