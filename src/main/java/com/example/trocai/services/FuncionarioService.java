@@ -1,6 +1,7 @@
 package com.example.trocai.services;
 
 import com.example.trocai.models.Funcionario;
+import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
@@ -16,12 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static com.example.trocai.models.Funcionario.SEQUENCE_NAME;
 
 @AllArgsConstructor
 @Service
 public class FuncionarioService  implements UserDetailsService {
 
     private final FuncionarioRepository funcionarioRepository;
+
+    private SequenceGeneratorService generatorService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -32,12 +38,13 @@ public class FuncionarioService  implements UserDetailsService {
 
     public String createFuncionario(@RequestBody Funcionario funcionario){
 
+        funcionario.setId(generatorService.getSequenceNumber(SEQUENCE_NAME));
         funcionario.setSenha(bCryptPasswordEncoder.encode(funcionario.getSenha()));
         funcionarioRepository.save(funcionario);
 
-        String response = "Funcionario: " + funcionario.getNome() +", id: '" + funcionario.getId()  + "' was successfully created";
-        return response;
+        return String.format("Funcionario: %s, id: '%d' was successfully created", funcionario.getNome(), funcionario.getId());
     }
+
 
 //    public List<Funcionario> getFuncionarioByTurnoLivre(@RequestParam int day, int month, int year, String turno){
 //        LocalDate dia = LocalDate.of(year, month, day);
@@ -51,9 +58,20 @@ public class FuncionarioService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return funcionarioRepository.findFuncionarioByEmail(email)
-                .map(user -> {
-                    return new User(user.getEmail(), user.getSenha(), new ArrayList<>());
-                })
+                .map(user -> new User(user.getEmail(), user.getSenha(), new ArrayList<>()))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
+
+    public Optional<Funcionario> findFuncionarioByEmail(String email) {
+        return funcionarioRepository.findFuncionarioByEmail(email);
+    }
+
+    public void updatePedidosDeTrocaList(PedidoDeTroca pedido){
+        Funcionario to = pedido.getToFuncionario();
+        Funcionario from = pedido.getFromFuncionario();
+        to.addPedidoDeTroca(pedido);
+        from.addPedidoDeTroca(pedido);
+        funcionarioRepository.saveAll(List.of(to, from));
+    }
+
 }

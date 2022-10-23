@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,9 +20,11 @@ import java.util.List;
 @ToString(exclude={"escalaMensal", "id", "senha"})
 public class Funcionario {
 
+    @Transient
+    public static final String SEQUENCE_NAME = "funcionario_sequence";
 
     @Id
-    private String id;
+    private int id;
     private String nome;
     private String sobreNome;
     private String nomeCompleto;
@@ -47,6 +52,14 @@ public class Funcionario {
         this.senha = senha;
         this.telefone = telefone;
         this.escalaMensal = escalaMensal;
+        this.pedidosDeTroca = new ArrayList<>();
 
     }
+
+    public void addPedidoDeTroca(PedidoDeTroca pedido){
+        if(!this.pedidosDeTroca.contains(pedido)){
+            this.pedidosDeTroca.add(pedido);
+        }
+    }
+
 }
