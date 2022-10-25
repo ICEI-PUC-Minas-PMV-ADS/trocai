@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import Lamp from "./lamp";
 import OptionsList from "./optionsList";
-import dimensions from "../../constants/Layout";
 import Colors from "../../constants/Colors";
 import LogoWithText from "../img/logoWithText";
 
@@ -16,7 +15,7 @@ function HomePage(): JSX.Element {
   const homeImg = require("../../assets/images/home-img.jpeg");
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.light.white }}>
       <HomeScreenContainer>
         <Header>
           <LogoWithText textColor={Colors.light.white} height={40} />
@@ -46,7 +45,7 @@ const HomeScreenContainer = styled.ScrollView.attrs(() => ({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    paddingBottom: "40px",
+    marginBottom: "40px",
     width: "100%",
     height: "100%",
     backgroundColor: Colors.light.white,
@@ -74,8 +73,9 @@ const Header = styled.View`
 `;
 
 const ImageContainer = styled.View`
-  width: 100%;
-  height: ${dimensions.window.height * 0.65};
+  width: 100vw;
+  height: 50vw;
+  max-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +86,9 @@ const ImageContainer = styled.View`
 
 const HomeImg = styled.Image`
   position: absolute;
-  width: 1366px;
-  height: 1366px;
+  width: 100vw;
+  height: 100vw;
+  max-width: 1000px;
+  max-height: 900px;
   top: -50%;
 `;
