@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Platform } from "react-native";
+import { Platform, useWindowDimensions } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import { loginUser } from "../../actions/userActions";
@@ -13,10 +13,11 @@ import {
 } from "../../common/styled";
 import UserInfo from "../../common/userInfo";
 import Colors from "../../constants/Colors";
-import dimensions, { defaultPadding } from "../../constants/Layout";
+import { defaultPadding } from "../../constants/Layout";
 import { RootStackScreenProps } from "../../types";
 
 function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
+  const { height, width } = useWindowDimensions();
   const [email, setEmail] = useState(``);
   const [password, setPassword] = useState(``);
   const [userNotFound, setUserNotFound] = useState(false);
@@ -35,6 +36,8 @@ function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
     <StyledLoginScreen
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={50}
+      width={width}
+      height={height}
     >
       <StyledLogin>
         <PageHeader pageName="Login" navigation={navigation} />
@@ -98,8 +101,11 @@ const StyledLogin = styled.ScrollView`
   background-color: ${Colors.light.white};
 `;
 
-const StyledLoginScreen = styled.KeyboardAvoidingView`
+const StyledLoginScreen = styled.KeyboardAvoidingView<{
+  width: number;
+  height: number;
+}>`
   flex: 1;
-  width: ${dimensions.window.width}px;
-  height: ${dimensions.window.height}px;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
 `;
