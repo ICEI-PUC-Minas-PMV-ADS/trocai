@@ -11,7 +11,8 @@ import { checkIfTokenIsExpired } from "../../services/loggedInServices";
 import ConfirmationDialog from "../../common/confirmationDialog";
 import { MAIN_ROUTES } from "../../utils";
 import { RootStackParamList } from "../../types";
-type AntDesignNames = React.ComponentProps<typeof AntDesign>['name'];
+
+type AntDesignNames = React.ComponentProps<typeof AntDesign>["name"];
 
 interface ItemProps {
   to: keyof RootStackParamList;
@@ -21,7 +22,6 @@ interface ItemProps {
 function OptionsList(): JSX.Element {
   const [showDialog, setShowDialog] = useState(false);
   const [userIsLogged, setUserIsLogged] = useState(false);
-  const [userIsManager, setUserIsManager] = useState(false);
   const { loggedUser } = useSelector(
     (state: { loggedUser: UserObject }) => state
   );
@@ -46,7 +46,6 @@ function OptionsList(): JSX.Element {
   useEffect(() => {
     if (user) {
       setUserIsLogged(true);
-      if (user.isManager) setUserIsManager(true);
       checkIfTokenIsExpired().then((response) => response && handleLogOut());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +78,7 @@ function OptionsList(): JSX.Element {
 
   if (!userIsLogged) {
     listData = [{ text: "Login", to: "Login", icon: "login" }];
-  } 
+  }
   return (
     <View style={{ marginBottom: 50 }}>
       {listData.map((item) => (
