@@ -3,7 +3,6 @@ import Login from "../screens/login/loginScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ProfileScreen from "../screens/profile/profileScreen";
 import { RootStackParamList } from "../types";
-import BottomTabNavigator from "./BottomTagNavigator";
 import HomePage from "../screens/home/homeScreen";
 import UserProfileForm from "../screens/profile/UserProfileForm";
 import NewRequest from "../screens/requests/newRequest";
@@ -21,7 +20,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Root"
-        component={BottomTabNavigator}
+        component={HomePage}
         options={{ headerShown: false }}
       />
       <Stack.Screen
