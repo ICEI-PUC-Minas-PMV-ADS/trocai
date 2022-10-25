@@ -1,5 +1,6 @@
 package com.example.trocai.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class Funcionario {
     private EscalaMensal escalaMensal;
 
     @DBRef(lazy=true)
+    @JsonIgnore
     private List<PedidoDeTroca> pedidosDeTroca;
 
 
