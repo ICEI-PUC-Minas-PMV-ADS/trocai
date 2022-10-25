@@ -55,39 +55,23 @@ function NewRequest({
       <StyledNewRequest>
         <PageHeader pageName="Nova Solicitação" navigation={navigation} />
         <StyledNewRequestForm>
-          <StyledRadios>
-            <StyledRadioContainer>
-              <RadioButton
-                value="MANHA"
-                status={selectedShift === "MANHA" ? "checked" : "unchecked"}
-                onPress={() => setSelectedShift("MANHA")}
-              />
-              <StyledRadioLabel>Manhã</StyledRadioLabel>
-            </StyledRadioContainer>
-            <StyledRadioContainer>
-              <RadioButton
-                value="TARDE"
-                status={selectedShift === "TARDE" ? "checked" : "unchecked"}
-                onPress={() => setSelectedShift("TARDE")}
-              />
-              <StyledRadioLabel>Tarde</StyledRadioLabel>
-            </StyledRadioContainer>
-            <StyledRadioContainer>
-              <RadioButton
-                value="NOITE"
-                status={selectedShift === "NOITE" ? "checked" : "unchecked"}
-                onPress={() => setSelectedShift("NOITE")}
-              />
-              <StyledRadioLabel>Noite</StyledRadioLabel>
-            </StyledRadioContainer>
-          </StyledRadios>
           {Platform.OS === "web" ? (
             <WebPicker
               currentValue={moment(timestamp).format("YYYY-MM-DD")}
               onChange={(value: string) => {
                 setTimestamp(new Date(value).getTime());
               }}
-              style={{ color: "red" }}
+              style={{
+                fontSize: "16px",
+                height: "25px",
+                borderColor: Colors.light["dark-gray"],
+                border: "1px solid",
+                borderRadius: 50,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 40,
+                paddingLeft: 40,
+              }}
             />
           ) : (
             <View
@@ -115,7 +99,36 @@ function NewRequest({
               />
             </View>
           )}
-          <SubmitPressable style={{ marginTop: 50 }} onPress={handleNewRequest}>
+          <StyledRadios>
+            <StyledRadioContainer>
+              <RadioButton
+                value="MANHA"
+                status={selectedShift === "MANHA" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("MANHA")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Manhã</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer>
+              <RadioButton
+                value="TARDE"
+                status={selectedShift === "TARDE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("TARDE")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Tarde</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer>
+              <RadioButton
+                value="NOITE"
+                status={selectedShift === "NOITE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("NOITE")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Noite</StyledRadioLabel>
+            </StyledRadioContainer>
+          </StyledRadios>
+          <SubmitPressable style={{ marginTop: 20 }} onPress={handleNewRequest}>
             <SubmitPressableText>Procurar</SubmitPressableText>
             <IconContainer>
               <MaterialCommunityIcons
@@ -175,7 +188,10 @@ const StyledNewRequest = styled.ScrollView`
 `;
 const StyledNewRequestForm = styled.View`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 `;
 const StyledRadios = styled.View`
   display: flex;
