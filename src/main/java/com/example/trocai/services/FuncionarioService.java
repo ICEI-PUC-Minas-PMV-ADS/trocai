@@ -42,7 +42,7 @@ public class FuncionarioService  implements UserDetailsService {
         funcionario.setSenha(bCryptPasswordEncoder.encode(funcionario.getSenha()));
         funcionarioRepository.save(funcionario);
 
-        return String.format("Funcionario: %s, id: '%d' was successfully created", funcionario.getNome(), funcionario.getId());
+        return String.format("Funcionario %s was successfully created", funcionario.getNome());
     }
 
 

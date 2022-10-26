@@ -18,7 +18,7 @@ import java.util.List;
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude={"escalaMensal", "id", "senha"})
+@ToString(exclude={"escalaMensal", "senha"})
 public class Funcionario {
 
     @Transient

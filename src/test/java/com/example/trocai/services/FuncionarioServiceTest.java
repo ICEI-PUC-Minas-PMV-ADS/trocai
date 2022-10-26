@@ -33,6 +33,9 @@ public class FuncionarioServiceTest {
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Mock
+    private SequenceGeneratorService generatorService;
+
     private static Funcionario funcionario;
 
     @BeforeAll
@@ -49,7 +52,7 @@ public class FuncionarioServiceTest {
     @Test
     public void shouldCreateFuncionario() {
         when(bCryptPasswordEncoder.encode(funcionario.getSenha())).thenReturn("#256488hdgdggd76464");
-        assertEquals( "Funcionario: Carl, id: 'null' was successfully created", funcionarioService.createFuncionario(funcionario));
+        assertEquals( "Funcionario Carl was successfully created", funcionarioService.createFuncionario(funcionario));
     }
 
     @Test

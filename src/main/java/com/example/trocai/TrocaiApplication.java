@@ -1,8 +1,10 @@
 package com.example.trocai;
 
 import com.example.trocai.models.*;
+import com.example.trocai.repositories.FuncionarioRepository;
 import com.example.trocai.services.FuncionarioService;
 import com.example.trocai.services.PedidoDeTrocaService;
+import com.example.trocai.services.SequenceGeneratorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -101,5 +103,8 @@ public class TrocaiApplication {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public SequenceGeneratorService generatorService() { return new SequenceGeneratorService();}
 
 }
