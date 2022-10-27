@@ -1,6 +1,9 @@
 package com.example.trocai.controllers;
 
+import com.example.trocai.models.Cargo;
+import com.example.trocai.models.EscalaMensal;
 import com.example.trocai.models.Funcionario;
+import com.example.trocai.models.Turno;
 import com.example.trocai.services.FuncionarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +22,11 @@ public class FuncionarioController {
         return funcionarioService.getAllFuncionarios();
     }
 
+    //TODO: improve with request body
     @PostMapping
-    public String createFuncionario(@RequestBody Funcionario funcionario) {return funcionarioService.createFuncionario(funcionario);}
-//
+    public String createFuncionario(@RequestParam String nome, @RequestParam String sobreNome, @RequestParam String turnoPrincipal, @RequestParam String cargo, @RequestParam String email, @RequestParam String senha, @RequestParam String telefone){
+        return funcionarioService.createFuncionario(new Funcionario(nome, sobreNome, Turno.valueOf(turnoPrincipal), Cargo.valueOf(cargo), email, senha, telefone, new EscalaMensal(2022,9) ));
+    }
 //    //TODO: fix mappings
 //    @GetMapping("/funcionariosPorTurnoLivre")
 //    public List<Funcionario> fetchFuncionariosPorTurnoLivre(@RequestParam int day, int month, int year, String turno){

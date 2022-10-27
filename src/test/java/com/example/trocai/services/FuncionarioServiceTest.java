@@ -40,7 +40,7 @@ public class FuncionarioServiceTest {
 
     @BeforeAll
     static void SetUp() {
-        funcionario = FuncionarioMock.getFuncionario();
+        funcionario = FuncionarioMock.getFuncionarios().get(0);
     }
 
     @Test
@@ -59,8 +59,9 @@ public class FuncionarioServiceTest {
     public void shouldReturnFuncionariosByTurnoPrincipal() {
         Turno turno = Turno.NOITE;
 
-        when(funcionarioRepository.getFuncionarioByTurnoPrincipal(turno)).thenReturn(Arrays.asList(funcionario));
-        assertEquals(Arrays.asList(funcionario), funcionarioService.getFuncionarioByTurnoPrincipal(turno.name()));
+        when(funcionarioService.getFuncionarioByTurnoPrincipal("NOITE")).thenReturn(Arrays.asList(funcionario));
+        assertEquals(Arrays.asList(funcionario), funcionarioRepository.getFuncionarioByTurnoPrincipal(turno));
+        assertEquals(funcionario.getEmail(), "sagan@email.com");
     }
 
     @Test
