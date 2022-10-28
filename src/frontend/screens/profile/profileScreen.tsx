@@ -17,10 +17,9 @@ function Perfil({
     (state: { loggedUser: UserObject }) => state
   );
 
-  const selectedUser = route?.params?.user;
-  const user = selectedUser || loggedUser?.result;
+  const user = loggedUser?.result;
   const dispatch = useDispatch();
-
+  console.log(loggedUser.username);
   const onDelete = (): void => {
     dispatch(deleteUser(user));
     navigation.navigate("UsersList");
@@ -28,10 +27,7 @@ function Perfil({
 
   return (
     <StyledSelectedUser>
-      <PageHeader
-        pageName={selectedUser ? user.firstName : "My Profile"}
-        navigation={navigation}
-      />
+      <PageHeader pageName="My Profile" navigation={navigation} />
       {route.name === "Profile" ? null : (
         <SelectedAssetButtons
           onDelete={onDelete}
@@ -43,19 +39,11 @@ function Perfil({
       </StyledUserName>
 
       <StyledStrong>email</StyledStrong>
-      <StyledUserProp>{user.email}</StyledUserProp>
+      <StyledUserProp>{loggedUser.username}</StyledUserProp>
 
       <StyledStrong>manager</StyledStrong>
       <StyledUserProp>{user.isManager ? "Yes" : "No"}</StyledUserProp>
 
-      <BookingsTitleContainer>
-        <MaterialCommunityIcons
-          name="calendar-check"
-          size={18}
-          color="#457B9D"
-        />
-        <StyledStrong> Current Bookings</StyledStrong>
-      </BookingsTitleContainer>
     </StyledSelectedUser>
   );
 }
