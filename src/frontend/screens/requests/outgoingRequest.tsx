@@ -73,7 +73,7 @@ function Item({
 }) {
   return (
     <ItemContainer>
-      <ItemText>{to}</ItemText>
+      <ItemText>{to.nomeCompleto}</ItemText>
       <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
       <ItemStatus>{status}</ItemStatus>
       <ItemRefuse>
