@@ -14,4 +14,6 @@ public interface FuncionarioRepository
 
     List<Funcionario> getFuncionarioByTurnoPrincipal(Turno turno);
 
+    Optional<Funcionario> findFuncionarioById(Long id);
+
 }

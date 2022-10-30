@@ -1,8 +1,11 @@
 package com.example.trocai.controllers;
 
+import com.example.trocai.dto.PedidoDeTrocaDTO;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.services.PedidoDeTrocaService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +23,9 @@ public class PedidoDeTrocaController {
     }
 
     @PostMapping
-    public PedidoDeTroca createPedidoDeTroca(@RequestBody PedidoDeTroca pedido) {
-        return pedidoDeTrocaService.createPedidoDeTroca(pedido);
+    public ResponseEntity<Void> createPedidoDeTroca(@RequestBody PedidoDeTrocaDTO pedidoDTO) throws Exception {
+        pedidoDeTrocaService.criarPedidoTroca(pedidoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
 }

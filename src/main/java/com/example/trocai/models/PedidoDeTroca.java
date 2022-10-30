@@ -1,6 +1,7 @@
 package com.example.trocai.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Document(collection="trocas")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class PedidoDeTroca {
     @Transient
     public static final String SEQUENCE_NAME = "pedido_sequence";

@@ -1,5 +1,7 @@
 package com.example.trocai.services;
 
+import com.example.trocai.dto.PedidoDeTrocaDTO;
+import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Status;
 import com.example.trocai.repositories.PedidoDeTrocaRepository;
@@ -32,4 +34,29 @@ public class PedidoDeTrocaService {
         funcionarioService.updatePedidosDeTrocaList(pedido);
         return pedidoDeTrocaRepository.save(pedido);
     }
+
+    public void criarPedidoTroca(PedidoDeTrocaDTO pedidoDTO) throws Exception {
+        Funcionario funcionarioSolicitante = getFuncionarioById(pedidoDTO.getIdFuncionarioSolicitante());
+        Funcionario funcionarioSolicitado = getFuncionarioById(pedidoDTO.getIdFuncionarioSolicitado());
+
+        PedidoDeTroca pedidoDeTroca = PedidoDeTroca.builder()
+                .id(generatorService.getSequenceNumber(PedidoDeTroca.SEQUENCE_NAME))
+                .fromFuncionario(funcionarioSolicitante)
+                .toFuncionario(funcionarioSolicitado)
+                .dia(pedidoDTO.getDataDaTroca())
+                .turno(pedidoDTO.getTurnoDaTroca())
+                .status(pedidoDTO.getStatus())
+                .build();
+
+        this.pedidoDeTrocaRepository.save(pedidoDeTroca);
+    }
+
+    private Funcionario getFuncionarioById(Long idFuncionarioSolicitante) throws Exception {
+        try {
+            return this.funcionarioService.findFuncionarioById(idFuncionarioSolicitante).get();
+        } catch (Exception e) {
+            throw new Exception("Funcionário não existe");
+        }
+    }
+
 }
