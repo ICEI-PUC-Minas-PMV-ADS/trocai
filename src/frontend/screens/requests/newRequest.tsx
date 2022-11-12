@@ -55,14 +55,7 @@ function NewRequest({
       keyboardVerticalOffset={50}
     >
       <StyledNewRequest>
-        <View
-          style={{
-            width: "100%",
-            paddingBottom: 50,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <PaddingView>
           <PageHeader pageName="Nova Solicitação" navigation={navigation} />
           <StyledNewRequestForm>
             {Platform.OS === "web" ? (
@@ -160,7 +153,7 @@ function NewRequest({
             keyExtractor={(item) => item.id}
             style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
-        </View>
+        </PaddingView>
       </StyledNewRequest>
       {selectedEmployee ? (
         <ConfirmationDialog
@@ -207,7 +200,6 @@ const StyledNewRequest = styled.ScrollView.attrs(() => ({
     alignItems: "center",
   },
 }))`
-  padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
   background-color: ${Colors.light.white};

@@ -115,6 +115,10 @@ export const NoContentFoundText = styled.Text`
 
 export const PaddingView = styled.View`
   padding: ${defaultPadding}px;
+  width: 100%;
+  padding-bottom: 100px;
+  display: flex;
+  align-items: center;
 `;
 
 export const shadowStyles = {

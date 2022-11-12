@@ -50,6 +50,7 @@ function OutgoingRequestList({
             data={changeRequests}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
+            style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
         ) : (
           <NoContentFoundText>Sem solicitações</NoContentFoundText>
@@ -82,19 +83,11 @@ function Item({
   return (
     <Card style={shadowStyles}>
       <Card.Content>
-        <ItemContainer
-          style={Platform.OS !== "web" ? { flexWrap: "wrap" } : null}
-        >
+        <ItemContainer>
           <ItemText>{to.nomeCompleto}</ItemText>
           <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
-          <ItemStatus
-            style={
-              Platform.OS !== "web" ? { width: "100%", marginTop: 10 } : null
-            }
-          >
-            {status}
-          </ItemStatus>
-          <ItemRefuse style={buttonStyles}>
+          <ItemStatus style={{ marginTop: 10 }}>{status}</ItemStatus>
+          <ItemRefuse>
             <PressableText onPress={() => setShowDialog({ id })}>
               Cancelar
             </PressableText>
@@ -108,27 +101,21 @@ function Item({
 export default OutgoingRequestList;
 
 const StyledSelectedBike = styled.SafeAreaView`
-  padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   position: relative;
   flex: 1;
   background-color: white;
+  width: 100%;
 `;
 
 const ItemContainer = styled.View`
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
   display: flex;
-  flex-direction: row;
   border-radius: 3px;
   align-items: center;
+  width: 100%;
 `;
-
-const buttonStyles =
-  Platform.OS !== "web" ? { width: "45%", marginTop: 80 } : null;
 
 const ItemText = styled.Text`
   text-transform: capitalize;
@@ -145,6 +132,9 @@ const ItemRefuse = styled.Pressable`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  width: 100%;
+  margin-top: 20px;
+  align-self: stretch;
 `;
 
 const PressableText = styled(SubmitPressableText)`

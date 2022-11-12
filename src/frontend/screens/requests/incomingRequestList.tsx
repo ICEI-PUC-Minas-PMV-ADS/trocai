@@ -54,6 +54,7 @@ function IncomingRequestList({
             data={changeRequests}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
+            style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
         ) : (
           <NoContentFoundText>Sem solicitações</NoContentFoundText>
@@ -87,19 +88,17 @@ function Item({
   return (
     <Card style={shadowStyles}>
       <Card.Content>
-        <ItemContainer
-          style={Platform.OS !== "web" ? { flexWrap: "wrap" } : null}
-        >
+        <ItemContainer>
           <ItemText>{from?.nomeCompleto}</ItemText>
           <ItemText>{date}</ItemText>
-          <ItemAccept style={buttonStyles}>
+          <ItemAccept>
             <PressableText
               onPress={() => setShowDialog({ id, action: "accept" })}
             >
               Aceitar
             </PressableText>
           </ItemAccept>
-          <ItemRefuse style={buttonStyles}>
+          <ItemRefuse>
             <PressableText
               onPress={() => setShowDialog({ id, action: "refuse" })}
             >
@@ -114,27 +113,21 @@ function Item({
 
 export default IncomingRequestList;
 
-const buttonStyles =
-  Platform.OS !== "web" ? { width: "45%", marginTop: 80 } : null;
-
 const StyledSelectedBike = styled.SafeAreaView`
-  padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   position: relative;
   flex: 1;
   background-color: white;
+  width: 100%;
 `;
 
 const ItemContainer = styled.View`
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
   display: flex;
-  flex-direction: row;
   border-radius: 3px;
   align-items: center;
+  width: 100%;
 `;
 const ItemText = styled.Text`
   text-transform: capitalize;
@@ -148,11 +141,13 @@ const ItemAccept = styled.Pressable`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  width: 100%;
+  margin-top: 20px;
+  align-self: stretch;
 `;
 
 const ItemRefuse = styled(ItemAccept)`
   background-color: ${Colors.light.red};
-  margin-left: 5%;
 `;
 
 const PressableText = styled(SubmitPressableText)`
