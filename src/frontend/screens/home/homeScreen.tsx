@@ -1,10 +1,11 @@
-import { Text, SafeAreaView } from "react-native";
+import { Text, SafeAreaView, Platform } from "react-native";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import Lamp from "./lamp";
 import OptionsList from "./optionsList";
 import Colors from "../../constants/Colors";
 import LogoWithText from "../img/logoWithText";
+import dimensions from "../../constants/Layout";
 
 function HomePage(): JSX.Element {
   const { loggedUser } = useSelector(
@@ -73,9 +74,13 @@ const Header = styled.View`
 `;
 
 const ImageContainer = styled.View`
-  width: 100vw;
-  height: 50vw;
-  max-height: 50vh;
+  width: ${Platform.OS === "web" ? "100vw" : `${dimensions.window.width}px`};
+  height: ${Platform.OS === "web"
+    ? "50vw"
+    : `${dimensions.window.width * 0.5}px`};
+  max-height: ${Platform.OS === "web"
+    ? "50vh"
+    : `${dimensions.window.height * 0.5}px`};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,8 +91,8 @@ const ImageContainer = styled.View`
 
 const HomeImg = styled.Image`
   position: absolute;
-  width: 100vw;
-  height: 100vw;
+  width: ${Platform.OS === "web" ? "100vw" : `${dimensions.window.width}px`};
+  height: ${Platform.OS === "web" ? "100vw" : `${dimensions.window.width}px`};
   max-width: 1000px;
   max-height: 900px;
   top: -50%;
