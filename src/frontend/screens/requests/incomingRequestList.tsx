@@ -3,7 +3,6 @@ import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem, Platform } from "react-native";
 import { RootStackScreenProps } from "../../types";
-import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
 import {
@@ -113,7 +112,7 @@ function Item({
 
 export default IncomingRequestList;
 
-const StyledSelectedBike = styled.SafeAreaView`
+const StyledSelectedBike = styled.View`
   display: flex;
   flex-direction: column;
   position: relative;

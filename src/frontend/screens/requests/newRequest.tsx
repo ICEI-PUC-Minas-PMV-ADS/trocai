@@ -14,7 +14,6 @@ import {
   PaddingView,
 } from "../../common/styled";
 import Colors from "../../constants/Colors";
-import dimensions, { defaultPadding } from "../../constants/Layout";
 import { RootStackScreenProps } from "../../types";
 import WebPicker from "./webPicker";
 import { fetchEmployees } from "../../services/api";
@@ -50,111 +49,103 @@ function NewRequest({
     <Item employee={item} setShowDialog={setSelectedEmployee} />
   );
   return (
-    <StyledNewRequestScreen
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={50}
-    >
-      <StyledNewRequest>
-        <PaddingView>
-          <PageHeader pageName="Nova Solicitação" navigation={navigation} />
-          <StyledNewRequestForm>
-            {Platform.OS === "web" ? (
-              <WebPicker
-                currentValue={moment(timestamp).format("YYYY-MM-DD")}
-                onChange={(value: string) => {
-                  setTimestamp(new Date(value).getTime());
-                }}
-                style={{
-                  fontSize: "16px",
-                  height: "25px",
-                  borderColor: Colors.light["dark-gray"],
-                  border: "1px solid",
-                  borderRadius: "50px",
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  paddingRight: 40,
-                  paddingLeft: 40,
-                }}
-              />
-            ) : (
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <StyledDatesContainer onPress={() => setOpenStart(true)}>
-                  <StyledDatesTitle>Start:</StyledDatesTitle>
-                  <StyledDates>
-                    {moment(timestamp).format("DD-MM-YY HH:mm")}
-                  </StyledDates>
-                </StyledDatesContainer>
-                <DateTimePickerModal
-                  date={new Date(timestamp)}
-                  isVisible={openStart}
-                  mode="datetime"
-                  onConfirm={(date) => {
-                    setOpenStart(false);
-                    setTimestamp(date.getTime());
-                  }}
-                  onCancel={() => setOpenStart(false)}
-                  style={{ width: "100%", flexGrow: 1 }}
-                />
-              </View>
-            )}
-            <StyledRadios>
-              <StyledRadioContainer>
-                <RadioButton.Android
-                  value="MANHA"
-                  status={selectedShift === "MANHA" ? "checked" : "unchecked"}
-                  onPress={() => setSelectedShift("MANHA")}
-                  color={Colors.light.red}
-                />
-                <StyledRadioLabel>Manhã</StyledRadioLabel>
-              </StyledRadioContainer>
-              <StyledRadioContainer style={{ marginRight: 40, marginLeft: 40 }}>
-                <RadioButton.Android
-                  value="TARDE"
-                  status={selectedShift === "TARDE" ? "checked" : "unchecked"}
-                  onPress={() => setSelectedShift("TARDE")}
-                  color={Colors.light.red}
-                />
-                <StyledRadioLabel>Tarde</StyledRadioLabel>
-              </StyledRadioContainer>
-              <StyledRadioContainer>
-                <RadioButton.Android
-                  value="NOITE"
-                  status={selectedShift === "NOITE" ? "checked" : "unchecked"}
-                  onPress={() => setSelectedShift("NOITE")}
-                  color={Colors.light.red}
-                />
-                <StyledRadioLabel>Noite</StyledRadioLabel>
-              </StyledRadioContainer>
-            </StyledRadios>
-            <SubmitPressable
-              style={{ marginTop: 20 }}
-              onPress={handleNewRequest}
+    <StyledNewRequest>
+      <PaddingView>
+        <PageHeader pageName="Nova Solicitação" navigation={navigation} />
+        <StyledNewRequestForm>
+          {Platform.OS === "web" ? (
+            <WebPicker
+              currentValue={moment(timestamp).format("YYYY-MM-DD")}
+              onChange={(value: string) => {
+                setTimestamp(new Date(value).getTime());
+              }}
+              style={{
+                fontSize: "16px",
+                height: "25px",
+                borderColor: Colors.light["dark-gray"],
+                border: "1px solid",
+                borderRadius: "50px",
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 40,
+                paddingLeft: 40,
+              }}
+            />
+          ) : (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
             >
-              <SubmitPressableText>Procurar</SubmitPressableText>
-              <IconContainer>
-                <MaterialCommunityIcons
-                  name="calendar-sync-outline"
-                  size={20}
-                  color={Colors.light.white}
-                />
-              </IconContainer>
-            </SubmitPressable>
-          </StyledNewRequestForm>
+              <StyledDatesContainer onPress={() => setOpenStart(true)}>
+                <StyledDatesTitle>Start:</StyledDatesTitle>
+                <StyledDates>
+                  {moment(timestamp).format("DD-MM-YY HH:mm")}
+                </StyledDates>
+              </StyledDatesContainer>
+              <DateTimePickerModal
+                date={new Date(timestamp)}
+                isVisible={openStart}
+                mode="datetime"
+                onConfirm={(date) => {
+                  setOpenStart(false);
+                  setTimestamp(date.getTime());
+                }}
+                onCancel={() => setOpenStart(false)}
+                style={{ width: "100%", flexGrow: 1 }}
+              />
+            </View>
+          )}
+          <StyledRadios>
+            <StyledRadioContainer>
+              <RadioButton.Android
+                value="MANHA"
+                status={selectedShift === "MANHA" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("MANHA")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Manhã</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer style={{ marginRight: 40, marginLeft: 40 }}>
+              <RadioButton.Android
+                value="TARDE"
+                status={selectedShift === "TARDE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("TARDE")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Tarde</StyledRadioLabel>
+            </StyledRadioContainer>
+            <StyledRadioContainer>
+              <RadioButton.Android
+                value="NOITE"
+                status={selectedShift === "NOITE" ? "checked" : "unchecked"}
+                onPress={() => setSelectedShift("NOITE")}
+                color={Colors.light.red}
+              />
+              <StyledRadioLabel>Noite</StyledRadioLabel>
+            </StyledRadioContainer>
+          </StyledRadios>
+          <SubmitPressable style={{ marginTop: 20 }} onPress={handleNewRequest}>
+            <SubmitPressableText>Procurar</SubmitPressableText>
+            <IconContainer>
+              <MaterialCommunityIcons
+                name="calendar-sync-outline"
+                size={20}
+                color={Colors.light.white}
+              />
+            </IconContainer>
+          </SubmitPressable>
+        </StyledNewRequestForm>
 
-          <FlatList
-            data={employees}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            style={{ width: Platform.OS === "web" ? 400 : "100%" }}
-          />
-        </PaddingView>
-      </StyledNewRequest>
+        <FlatList
+          data={employees}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          style={{ width: Platform.OS === "web" ? 400 : "100%", height: "50%" }}
+        />
+      </PaddingView>
       {selectedEmployee ? (
         <ConfirmationDialog
           onCancel={() => setSelectedEmployee(undefined)}
@@ -163,7 +154,7 @@ function NewRequest({
           type="submit"
         />
       ) : null}
-    </StyledNewRequestScreen>
+    </StyledNewRequest>
   );
 }
 
@@ -195,14 +186,14 @@ function Item({
 
 export default NewRequest;
 
-const StyledNewRequest = styled.ScrollView.attrs(() => ({
-  contentContainerStyle: {
-    alignItems: "center",
-  },
-}))`
+const StyledNewRequest = styled.View`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.light.white};
+  position: relative;
+  flex: 1;
+  background-color: white;
+  width: 100%;
+  height: 100%;
 `;
 
 const StyledNewRequestForm = styled.View`
@@ -223,12 +214,6 @@ const StyledRadioContainer = styled.View`
 `;
 const StyledRadioLabel = styled.Text`
   color: ${Colors.light.black};
-`;
-
-const StyledNewRequestScreen = styled.KeyboardAvoidingView`
-  flex: 1;
-  width: ${Platform.OS === "web" ? "100vw" : `${dimensions.window.width}px`};
-  height: ${Platform.OS === "web" ? "100vh" : `${dimensions.window.height}px`};
 `;
 
 const StyledDatesContainer = styled.Pressable`

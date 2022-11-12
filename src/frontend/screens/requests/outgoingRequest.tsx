@@ -99,7 +99,7 @@ function Item({
 
 export default OutgoingRequestList;
 
-const StyledSelectedBike = styled.SafeAreaView`
+const StyledSelectedBike = styled.View`
   display: flex;
   flex-direction: column;
   position: relative;

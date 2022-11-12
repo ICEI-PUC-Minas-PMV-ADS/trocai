@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { FlatList, ListRenderItem, Platform, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../../reducers/loggedUser";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../../reducers/selectedUserReducer";
 import Colors from "../../constants/Colors";
@@ -80,17 +80,11 @@ function OptionsList(): JSX.Element {
     listData = [{ text: "Login", to: "Login", icon: "login" }];
   }
 
-  const renderItem: ListRenderItem<ItemProps> = ({ item }) => (
-    <OptionListItem item={item} />
-  );
   return (
     <ScrollView>
-      <FlatList
-        data={listData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.text}
-        style={{ width: Platform.OS === "web" ? 400 : "100%" }}
-      />
+      {listData.map((item) => (
+        <OptionListItem item={item} key={item.text} />
+      ))}
       {user && (
         <OptionListButton onPress={() => setShowDialog(true)}>
           <ButtonIcon>
