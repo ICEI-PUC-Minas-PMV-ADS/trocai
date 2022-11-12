@@ -4,7 +4,6 @@ import { FlatList, ListRenderItem, Platform } from "react-native";
 import moment from "moment";
 import { Card } from "react-native-paper";
 import { RootStackScreenProps } from "../../types";
-import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
 import {
