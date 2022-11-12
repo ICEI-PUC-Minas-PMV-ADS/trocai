@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import styled from "styled-components/native";
 import Colors from "../constants/Colors";
+import { defaultPadding } from "../constants/Layout";
 
 export const StyledPressable = styled.Pressable`
   border: none;
@@ -110,4 +111,8 @@ export const NoContentFoundText = styled.Text`
   font-size: 30px;
   margin-top: 30px;
   font-weight: bold;
+`;
+
+export const PaddingView = styled.View`
+  padding: ${defaultPadding}px;
 `;

@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { RootStackScreenProps } from "../../types";
 import Colors from "../../constants/Colors";
 import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import SelectedAssetButtons from "../../common/selectedAssetButtons";
 import { deleteUser } from "../../actions/userActions";
+import { PaddingView } from "../../common/styled";
 
 function Perfil({
   navigation,
@@ -27,23 +27,24 @@ function Perfil({
 
   return (
     <StyledSelectedUser>
-      <PageHeader pageName="My Profile" navigation={navigation} />
-      {route.name === "Profile" ? null : (
-        <SelectedAssetButtons
-          onDelete={onDelete}
-          onEdit={() => navigation.navigate("EditProfile", { user })}
-        />
-      )}
-      <StyledUserName>
-        {user.firstName} {user.lastName}
-      </StyledUserName>
+      <PaddingView>
+        <PageHeader pageName="Meu Perfil" navigation={navigation} />
+        {route.name === "Profile" ? null : (
+          <SelectedAssetButtons
+            onDelete={onDelete}
+            onEdit={() => navigation.navigate("EditProfile", { user })}
+          />
+        )}
+        <StyledUserName>
+          {user.firstName} {user.lastName}
+        </StyledUserName>
 
-      <StyledStrong>email</StyledStrong>
-      <StyledUserProp>{loggedUser.username}</StyledUserProp>
+        <StyledStrong>email</StyledStrong>
+        <StyledUserProp>{loggedUser.username}</StyledUserProp>
 
-      <StyledStrong>manager</StyledStrong>
-      <StyledUserProp>{user.isManager ? "Yes" : "No"}</StyledUserProp>
-
+        <StyledStrong>manager</StyledStrong>
+        <StyledUserProp>{user.isManager ? "Yes" : "No"}</StyledUserProp>
+      </PaddingView>
     </StyledSelectedUser>
   );
 }
@@ -51,7 +52,6 @@ function Perfil({
 export default Perfil;
 
 const StyledSelectedUser = styled.SafeAreaView`
-  padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -75,14 +75,4 @@ const StyledStrong = styled.Text`
 const StyledUserProp = styled.Text`
   color: ${Colors.dark.black};
   margin-bottom: 25px;
-`;
-
-const BookingsTitleContainer = styled.View`
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: 20px;
 `;

@@ -20,12 +20,12 @@ export const loginUser =
 
     try {
       const { data } = await api.loginUser(params);
-      dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data });
-      setGlobalNotification(
-        dispatch,
-        `Hello, ${data.result.firstName}`,
-        "success"
-      );
+      console.log(data);
+      dispatch({
+        type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER,
+        payload: { ...data, result: {} },
+      });
+      setGlobalNotification(dispatch, `Hello, ${data.token}`, "success");
       navigation.replace("Root");
     } catch (error) {
       // eslint-disable-next-line no-console

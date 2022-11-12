@@ -106,7 +106,7 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   border-radius: 3px;
-  gap: 20px;
+  gap: ${Platform.OS === "web" ? "20px" : undefined};
   align-items: center;
   shadow-color: #000;
   shadow-opacity: 0.25;

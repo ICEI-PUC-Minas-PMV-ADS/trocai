@@ -191,7 +191,7 @@ const StyledNewRequestForm = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  /* gap: ${Platform.OS === "web" ? "20px" : undefined}; */
 `;
 const StyledRadios = styled.View`
   display: flex;
@@ -242,7 +242,7 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   border-radius: 3px;
-  gap: 20px;
+  /* gap: ${Platform.OS === "web" ? "20px" : undefined}; */
   align-items: center;
   shadow-color: #000;
   shadow-opacity: 0.25;

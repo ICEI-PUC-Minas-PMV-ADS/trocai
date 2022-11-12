@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { FlatList, ListRenderItem } from "react-native";
+import { FlatList, ListRenderItem, Platform } from "react-native";
 import { RootStackScreenProps } from "../../types";
 import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
@@ -115,7 +115,7 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   border-radius: 3px;
-  gap: 20px;
+  gap: ${Platform.OS === "web" ? "20px" : undefined};
   align-items: center;
   shadow-color: #000;
   shadow-opacity: 0.25;
