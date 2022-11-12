@@ -182,7 +182,7 @@ function Item({
         >
           <ItemText>{employee.nomeCompleto}</ItemText>
           <ItemText style={{ margin: 20 }}>{employee.turnoPrincipal}</ItemText>
-          <ItemAccept style={buttonStyles}>
+          <ItemAccept>
             <PressableText onPress={() => setShowDialog(employee)}>
               solicitar
             </PressableText>
@@ -254,16 +254,11 @@ const StyledDates = styled.Text`
 
 const ItemContainer = styled.View`
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
   display: flex;
-  flex-direction: row;
   border-radius: 3px;
   align-items: center;
+  width: 100%;
 `;
-
-const buttonStyles =
-  Platform.OS !== "web" ? { width: "100%", flexGrow: 1 } : null;
 
 const ItemText = styled.Text`
   text-transform: capitalize;
@@ -276,6 +271,9 @@ const ItemAccept = styled.Pressable`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  width: 100%;
+  margin-top: 20px;
+  align-self: stretch;
 `;
 
 const PressableText = styled(SubmitPressableText)`
