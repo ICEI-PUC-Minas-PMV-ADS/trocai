@@ -1,6 +1,7 @@
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
+import { Platform } from "react-native";
 import { useSelector } from "react-redux";
 import styled from "styled-components/native";
 import Colors from "../constants/Colors";
@@ -49,7 +50,7 @@ export default PageHeader;
 const StyledBackArrow = styled.Pressable`
   background-color: ${Colors.light.red};
   color: ${Colors.light.white};
-  border-radius: 50%;
+  border-radius: ${Platform.OS === "web" ? "50%" : "50px"};
   height: 40px;
   width: 40px;
   display: flex;
