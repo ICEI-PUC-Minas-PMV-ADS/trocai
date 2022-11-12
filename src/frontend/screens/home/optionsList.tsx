@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { FlatList, Platform, ScrollView } from "react-native";
+import { FlatList, ListRenderItem, Platform, ScrollView } from "react-native";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../../reducers/loggedUser";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../../reducers/selectedUserReducer";
 import Colors from "../../constants/Colors";
