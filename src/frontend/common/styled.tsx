@@ -1,4 +1,3 @@
-import { Platform } from "react-native";
 import styled from "styled-components/native";
 import Colors from "../constants/Colors";
 import { defaultPadding } from "../constants/Layout";
@@ -68,7 +67,6 @@ export const FilterInput = styled.TextInput`
   padding-left: 16px;
 `;
 export const SubmitPressable = styled.Pressable`
-  width: ${Platform.OS === "web" ? "fit-content" : "100%"};
   border-radius: 35px;
   margin-bottom: 20px;
   background: ${Colors.light["light-blue"]};
@@ -90,7 +88,7 @@ export const SubmitPressableText = styled.Text`
 export const IconContainer = styled.View`
   padding: 7px;
   background-color: ${Colors.light.red};
-  border-radius: 50;
+  border-radius: 50px;
 `;
 
 export const StyledFilterInput = styled.TextInput`
