@@ -135,6 +135,7 @@ const ButtonText = styled.Text`
   font-size: 22px;
   color: white;
   font-weight: bold;
+  width: 65%;
 `;
 
 const ButtonIcon = styled.View`
