@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Card } from "react-native-paper";
+import { ActivityIndicator, Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem, Platform } from "react-native";
 import { RootStackScreenProps } from "../../types";
@@ -20,9 +20,14 @@ function IncomingRequestList({
   const [showDialog, setShowDialog] = useState<
     { id: string; action: "accept" | "refuse" } | undefined
   >();
+  const [loading, setLoading] = useState(false);
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
   useEffect(() => {
-    fetchAllChangeRequest().then((res) => setChangeRequests(res.data));
+    setLoading(true);
+    fetchAllChangeRequest().then((res) => {
+      setChangeRequests(res.data);
+      setLoading(false);
+    });
   }, []);
 
   console.log(changeRequests);
@@ -48,6 +53,9 @@ function IncomingRequestList({
     <StyledSelectedBike>
       <PaddingView>
         <PageHeader pageName="List da solicitações" navigation={navigation} />
+        {loading ? (
+          <ActivityIndicator animating color={Colors.light.red} />
+        ) : null}
         {changeRequests.length ? (
           <FlatList
             data={changeRequests}
@@ -55,9 +63,10 @@ function IncomingRequestList({
             keyExtractor={(item) => item.id}
             style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
-        ) : (
+        ) : null}
+        {!changeRequests.length && !loading ? (
           <NoContentFoundText>Sem solicitações</NoContentFoundText>
-        )}
+        ) : null}
 
         {showDialog ? (
           <ConfirmationDialog

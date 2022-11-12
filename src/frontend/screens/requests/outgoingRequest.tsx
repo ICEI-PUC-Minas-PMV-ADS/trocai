@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem, Platform } from "react-native";
 import moment from "moment";
-import { Card } from "react-native-paper";
+import { ActivityIndicator, Card } from "react-native-paper";
 import { RootStackScreenProps } from "../../types";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
@@ -20,8 +20,13 @@ function OutgoingRequestList({
 }: RootStackScreenProps<"RequestFromOthers">): JSX.Element {
   const [showDialog, setShowDialog] = useState<{ id: string } | undefined>();
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetchAllChangeRequest().then((res) => setChangeRequests(res.data));
+    setLoading(true);
+    fetchAllChangeRequest().then((res) => {
+      setChangeRequests(res.data);
+      setLoading(false);
+    });
   }, []);
 
   console.log(changeRequests);
@@ -44,6 +49,9 @@ function OutgoingRequestList({
     <StyledSelectedBike>
       <PaddingView>
         <PageHeader pageName="List da solicitações" navigation={navigation} />
+        {loading ? (
+          <ActivityIndicator animating color={Colors.light.red} />
+        ) : null}
         {changeRequests.length ? (
           <FlatList
             data={changeRequests}
@@ -51,9 +59,10 @@ function OutgoingRequestList({
             keyExtractor={(item) => item.id}
             style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
-        ) : (
+        ) : null}
+        {!changeRequests.length && !loading ? (
           <NoContentFoundText>Sem solicitações</NoContentFoundText>
-        )}
+        ) : null}
         {showDialog ? (
           <ConfirmationDialog
             onCancel={() => setShowDialog(undefined)}

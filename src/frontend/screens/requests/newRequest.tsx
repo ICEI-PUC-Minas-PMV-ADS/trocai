@@ -4,7 +4,7 @@ import { Platform, View, FlatList, ListRenderItem } from "react-native";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { Card, RadioButton } from "react-native-paper";
+import { ActivityIndicator, Card, RadioButton } from "react-native-paper";
 import PageHeader from "../../common/pageHeader";
 import {
   SubmitPressableText,
@@ -27,14 +27,18 @@ function NewRequest({
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>();
   const [selectedShift, setSelectedShift] = useState<Shift>("MANHA");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     // const { data } = await fetchEmployees();
-
-    fetchEmployees().then((res) =>
+    setLoading(true);
+    setEmployees([]);
+    fetchEmployees().then((res) => {
+      setLoading(false);
       setEmployees(
         res.data.filter((employee) => employee.turnoPrincipal === selectedShift)
-      )
-    );
+      );
+    });
   }, [selectedShift]);
 
   console.log(employees);
@@ -127,7 +131,10 @@ function NewRequest({
               <StyledRadioLabel>Noite</StyledRadioLabel>
             </StyledRadioContainer>
           </StyledRadios>
-          <SubmitPressable style={{ marginTop: 20 }} onPress={handleNewRequest}>
+          <SubmitPressable
+            style={{ marginTop: 20, marginBottom: 20 }}
+            onPress={handleNewRequest}
+          >
             <SubmitPressableText>Procurar</SubmitPressableText>
             <IconContainer>
               <MaterialCommunityIcons
@@ -138,7 +145,9 @@ function NewRequest({
             </IconContainer>
           </SubmitPressable>
         </StyledNewRequestForm>
-
+        {loading ? (
+          <ActivityIndicator animating color={Colors.light.red} />
+        ) : null}
         <FlatList
           data={employees}
           renderItem={renderItem}
