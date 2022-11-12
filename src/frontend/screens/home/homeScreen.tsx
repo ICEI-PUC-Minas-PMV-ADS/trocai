@@ -16,7 +16,16 @@ function HomePage(): JSX.Element {
   const homeImg = require("../../assets/images/home-img.jpeg");
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.light.white }}>
+    <SafeAreaView
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        backgroundColor: "white",
+        width: "100%",
+        flex: 1,
+      }}
+    >
       <HomeScreenContainer>
         <Header>
           <LogoWithText textColor={Colors.light.white} height={40} />
@@ -41,17 +50,16 @@ function HomePage(): JSX.Element {
 
 export default HomePage;
 
-const HomeScreenContainer = styled.ScrollView.attrs(() => ({
-  contentContainerStyle: {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    marginBottom: 40,
-    width: "100%",
-    height: "100%",
-    backgroundColor: Colors.light.white,
-  },
-}))``;
+const HomeScreenContainer = styled.View`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 40px;
+  background-color: white;
+  position: relative;
+`;
 
 const LampContainer = styled.View`
   width: 50%;
