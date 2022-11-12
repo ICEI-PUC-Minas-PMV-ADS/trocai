@@ -46,7 +46,7 @@ const HomeScreenContainer = styled.ScrollView.attrs(() => ({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    marginBottom: "40px",
+    marginBottom: 40,
     width: "100%",
     height: "100%",
     backgroundColor: Colors.light.white,
