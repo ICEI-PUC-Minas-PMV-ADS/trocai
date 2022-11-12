@@ -6,7 +6,7 @@
 
 `4° SEMESTRE`
 
-Este projeto tem como objetivo criar uma solução prática para pessoas que fazem parte de uma mesma empresa, consigam trocar os turnos do trabalho sem burocracias.
+Este projeto tem como objetivo criar uma solução prática para pessoas que fazem parte de uma mesma empresa consigam trocar os turnos do trabalho sem burocracias.
 
 ## Integrantes
 
