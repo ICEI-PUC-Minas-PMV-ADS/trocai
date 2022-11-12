@@ -97,12 +97,13 @@ function NewRequest({
                   setTimestamp(date.getTime());
                 }}
                 onCancel={() => setOpenStart(false)}
+                style={{ width: "100%", flexGrow: 1 }}
               />
             </View>
           )}
           <StyledRadios>
             <StyledRadioContainer>
-              <RadioButton
+              <RadioButton.Android
                 value="MANHA"
                 status={selectedShift === "MANHA" ? "checked" : "unchecked"}
                 onPress={() => setSelectedShift("MANHA")}
@@ -110,8 +111,8 @@ function NewRequest({
               />
               <StyledRadioLabel>Manhã</StyledRadioLabel>
             </StyledRadioContainer>
-            <StyledRadioContainer>
-              <RadioButton
+            <StyledRadioContainer style={{ marginRight: 40, marginLeft: 40 }}>
+              <RadioButton.Android
                 value="TARDE"
                 status={selectedShift === "TARDE" ? "checked" : "unchecked"}
                 onPress={() => setSelectedShift("TARDE")}
@@ -120,7 +121,7 @@ function NewRequest({
               <StyledRadioLabel>Tarde</StyledRadioLabel>
             </StyledRadioContainer>
             <StyledRadioContainer>
-              <RadioButton
+              <RadioButton.Android
                 value="NOITE"
                 status={selectedShift === "NOITE" ? "checked" : "unchecked"}
                 onPress={() => setSelectedShift("NOITE")}
@@ -204,6 +205,7 @@ const StyledNewRequestForm = styled.View`
 const StyledRadios = styled.View`
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 `;
 const StyledRadioContainer = styled.View`
   display: flex;
@@ -223,11 +225,12 @@ const StyledNewRequestScreen = styled.KeyboardAvoidingView`
 const StyledDatesContainer = styled.Pressable`
   display: flex;
   margin-bottom: 30px;
+  margin-top: 30px;
   font-size: 18px;
   border: 1px solid ${Colors.light["dark-gray"]};
   border-radius: 5px;
   padding: 10px;
-  width: 48%;
+  width: 100%;
 `;
 const StyledDatesTitle = styled.Text`
   color: ${Colors.light.black};
