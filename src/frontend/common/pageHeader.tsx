@@ -65,6 +65,7 @@ const StyledPageHeader = styled.View`
   align-items: center;
   padding-top: 30px;
   width: 100%;
+  margin-bottom: 30px;
 `;
 
 const StyledPageTitle = styled.Text`

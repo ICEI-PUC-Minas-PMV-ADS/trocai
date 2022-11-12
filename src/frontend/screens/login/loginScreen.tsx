@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Platform, useWindowDimensions } from "react-native";
+import { Platform, useWindowDimensions, View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import { loginUser } from "../../actions/userActions";
@@ -21,8 +22,10 @@ function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
   const [email, setEmail] = useState(``);
   const [password, setPassword] = useState(``);
   const [userNotFound, setUserNotFound] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   function handleLogin(): void {
+    setLoading(true);
     dispatch(
       loginUser(
         { email: email.toLowerCase(), senha: password },
@@ -49,16 +52,22 @@ function Login({ navigation }: RootStackScreenProps<"Login">): JSX.Element {
             setPassword={setPassword}
             isLogin
           />
-          <SubmitPressable style={{ marginTop: 50 }} onPress={handleLogin}>
-            <SubmitPressableText>Login</SubmitPressableText>
-            <IconContainer>
-              <MaterialIcons
-                size={20}
-                name="login"
-                color={Colors.light.white}
-              />
-            </IconContainer>
-          </SubmitPressable>
+          {loading ? (
+            <View style={{ margin: 50 }}>
+              <ActivityIndicator animating color={Colors.light.red} />
+            </View>
+          ) : (
+            <SubmitPressable style={{ marginTop: 50 }} onPress={handleLogin}>
+              <SubmitPressableText>Login</SubmitPressableText>
+              <IconContainer>
+                <MaterialIcons
+                  size={20}
+                  name="login"
+                  color={Colors.light.white}
+                />
+              </IconContainer>
+            </SubmitPressable>
+          )}
         </StyledForm>
 
         {userNotFound ? (
