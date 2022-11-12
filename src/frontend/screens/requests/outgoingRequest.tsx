@@ -1,12 +1,18 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { FlatList, ListRenderItem } from "react-native";
+import { FlatList, ListRenderItem, Platform } from "react-native";
 import moment from "moment";
+import { Card } from "react-native-paper";
 import { RootStackScreenProps } from "../../types";
 import { defaultPadding } from "../../constants/Layout";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
-import { NoContentFoundText, SubmitPressableText } from "../../common/styled";
+import {
+  NoContentFoundText,
+  PaddingView,
+  shadowStyles,
+  SubmitPressableText,
+} from "../../common/styled";
 import Colors from "../../constants/Colors";
 import { fetchAllChangeRequest } from "../../services/api";
 
@@ -37,23 +43,25 @@ function OutgoingRequestList({
 
   return (
     <StyledSelectedBike>
-      <PageHeader pageName="List da solicitações" navigation={navigation} />
-      {changeRequests.length ? (
-        <FlatList
-          data={changeRequests}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      ) : (
-        <NoContentFoundText>Sem solicitações</NoContentFoundText>
-      )}
-      {showDialog ? (
-        <ConfirmationDialog
-          onCancel={() => setShowDialog(undefined)}
-          onDelete={() => handleConfirmAction()}
-          text="cancel"
-        />
-      ) : null}
+      <PaddingView>
+        <PageHeader pageName="List da solicitações" navigation={navigation} />
+        {changeRequests.length ? (
+          <FlatList
+            data={changeRequests}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <NoContentFoundText>Sem solicitações</NoContentFoundText>
+        )}
+        {showDialog ? (
+          <ConfirmationDialog
+            onCancel={() => setShowDialog(undefined)}
+            onDelete={() => handleConfirmAction()}
+            text="cancel"
+          />
+        ) : null}
+      </PaddingView>
     </StyledSelectedBike>
   );
 }
@@ -72,16 +80,28 @@ function Item({
   setShowDialog: Dispatch<SetStateAction<{ id: string } | undefined>>;
 }) {
   return (
-    <ItemContainer>
-      <ItemText>{to.nomeCompleto}</ItemText>
-      <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
-      <ItemStatus>{status}</ItemStatus>
-      <ItemRefuse>
-        <PressableText onPress={() => setShowDialog({ id })}>
-          Cancelar
-        </PressableText>
-      </ItemRefuse>
-    </ItemContainer>
+    <Card style={shadowStyles}>
+      <Card.Content>
+        <ItemContainer
+          style={Platform.OS !== "web" ? { flexWrap: "wrap" } : null}
+        >
+          <ItemText>{to.nomeCompleto}</ItemText>
+          <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
+          <ItemStatus
+            style={
+              Platform.OS !== "web" ? { width: "100%", marginTop: 10 } : null
+            }
+          >
+            {status}
+          </ItemStatus>
+          <ItemRefuse style={buttonStyles}>
+            <PressableText onPress={() => setShowDialog({ id })}>
+              Cancelar
+            </PressableText>
+          </ItemRefuse>
+        </ItemContainer>
+      </Card.Content>
+    </Card>
   );
 }
 
@@ -98,21 +118,17 @@ const StyledSelectedBike = styled.SafeAreaView`
 `;
 
 const ItemContainer = styled.View`
-  padding: 20px;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 80%;
   display: flex;
   flex-direction: row;
   border-radius: 3px;
-  gap: ${Platform.OS === "web" ? "20px" : undefined};
   align-items: center;
-  shadow-color: #000;
-  shadow-opacity: 0.25;
-  shadow-radius: 3.84;
-  elevation: 5;
 `;
+
+const buttonStyles =
+  Platform.OS !== "web" ? { width: "45%", marginTop: 80 } : null;
 
 const ItemText = styled.Text`
   text-transform: capitalize;

@@ -4,12 +4,13 @@ import { Platform, View, FlatList, ListRenderItem } from "react-native";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { RadioButton } from "react-native-paper";
+import { Card, RadioButton } from "react-native-paper";
 import PageHeader from "../../common/pageHeader";
 import {
   SubmitPressableText,
   SubmitPressable,
   IconContainer,
+  shadowStyles,
 } from "../../common/styled";
 import Colors from "../../constants/Colors";
 import dimensions, { defaultPadding } from "../../constants/Layout";
@@ -166,15 +167,23 @@ function Item({
   setShowDialog: Dispatch<SetStateAction<Employee | undefined>>;
 }) {
   return (
-    <ItemContainer>
-      <ItemText>{employee.nomeCompleto}</ItemText>
-      <ItemText>{employee.turnoPrincipal}</ItemText>
-      <ItemAccept>
-        <PressableText onPress={() => setShowDialog(employee)}>
-          solicitar
-        </PressableText>
-      </ItemAccept>
-    </ItemContainer>
+    <Card style={shadowStyles}>
+      <Card.Content>
+        <ItemContainer
+          style={Platform.OS !== "web" ? { flexDirection: "column" } : null}
+        >
+          <ItemText>{employee.nomeCompleto}</ItemText>
+          <ItemText style={Platform.OS !== "web" ? { margin: 20 } : null}>
+            {employee.turnoPrincipal}
+          </ItemText>
+          <ItemAccept style={buttonStyles}>
+            <PressableText onPress={() => setShowDialog(employee)}>
+              solicitar
+            </PressableText>
+          </ItemAccept>
+        </ItemContainer>
+      </Card.Content>
+    </Card>
   );
 }
 
@@ -191,7 +200,6 @@ const StyledNewRequestForm = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* gap: ${Platform.OS === "web" ? "20px" : undefined}; */
 `;
 const StyledRadios = styled.View`
   display: flex;
@@ -214,7 +222,6 @@ const StyledNewRequestScreen = styled.KeyboardAvoidingView`
 
 const StyledDatesContainer = styled.Pressable`
   display: flex;
-  /* flex-direction: row; */
   margin-bottom: 30px;
   font-size: 18px;
   border: 1px solid ${Colors.light["dark-gray"]};
@@ -234,21 +241,17 @@ const StyledDates = styled.Text`
 `;
 
 const ItemContainer = styled.View`
-  padding: 20px;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 80%;
   display: flex;
   flex-direction: row;
   border-radius: 3px;
-  /* gap: ${Platform.OS === "web" ? "20px" : undefined}; */
   align-items: center;
-  shadow-color: #000;
-  shadow-opacity: 0.25;
-  shadow-radius: 3.84;
-  elevation: 5;
 `;
+
+const buttonStyles =
+  Platform.OS !== "web" ? { width: "100%", flexGrow: 1 } : null;
 
 const ItemText = styled.Text`
   text-transform: capitalize;
