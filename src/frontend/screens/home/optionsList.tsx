@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { View } from "react-native";
+import { FlatList, Platform, ScrollView } from "react-native";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../../reducers/loggedUser";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../../reducers/selectedUserReducer";
 import Colors from "../../constants/Colors";
@@ -79,11 +79,18 @@ function OptionsList(): JSX.Element {
   if (!userIsLogged) {
     listData = [{ text: "Login", to: "Login", icon: "login" }];
   }
+
+  const renderItem: ListRenderItem<ItemProps> = ({ item }) => (
+    <OptionListItem item={item} />
+  );
   return (
-    <View style={{ marginBottom: 50 }}>
-      {listData.map((item) => (
-        <OptionListItem item={item} key={item.text} />
-      ))}
+    <ScrollView>
+      <FlatList
+        data={listData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.text}
+        style={{ width: Platform.OS === "web" ? 400 : "100%" }}
+      />
       {user && (
         <OptionListButton onPress={() => setShowDialog(true)}>
           <ButtonIcon>
@@ -99,7 +106,7 @@ function OptionsList(): JSX.Element {
           text="logout"
         />
       ) : null}
-    </View>
+    </ScrollView>
   );
 }
 
