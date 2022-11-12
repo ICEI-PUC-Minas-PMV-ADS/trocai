@@ -146,6 +146,7 @@ function NewRequest({
           data={employees}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          style={{ width: 400 }}
         />
       </StyledNewRequest>
       {selectedEmployee ? (
@@ -174,9 +175,7 @@ function Item({
           style={Platform.OS !== "web" ? { flexDirection: "column" } : null}
         >
           <ItemText>{employee.nomeCompleto}</ItemText>
-          <ItemText style={Platform.OS !== "web" ? { margin: 20 } : null}>
-            {employee.turnoPrincipal}
-          </ItemText>
+          <ItemText style={{ margin: 20 }}>{employee.turnoPrincipal}</ItemText>
           <ItemAccept style={buttonStyles}>
             <PressableText onPress={() => setShowDialog(employee)}>
               solicitar
@@ -190,12 +189,17 @@ function Item({
 
 export default NewRequest;
 
-const StyledNewRequest = styled.ScrollView`
+const StyledNewRequest = styled.ScrollView.attrs(() => ({
+  contentContainerStyle: {
+    alignItems: "center",
+  },
+}))`
   padding: ${defaultPadding}px;
   display: flex;
   flex-direction: column;
   background-color: ${Colors.light.white};
 `;
+
 const StyledNewRequestForm = styled.View`
   display: flex;
   flex-direction: column;
@@ -218,8 +222,8 @@ const StyledRadioLabel = styled.Text`
 
 const StyledNewRequestScreen = styled.KeyboardAvoidingView`
   flex: 1;
-  width: ${dimensions.window.width}px;
-  height: ${dimensions.window.height}px;
+  width: ${Platform.OS === "web" ? "100vw" : `${dimensions.window.width}px`};
+  height: ${Platform.OS === "web" ? "100vh" : `${dimensions.window.height}px`};
 `;
 
 const StyledDatesContainer = styled.Pressable`
