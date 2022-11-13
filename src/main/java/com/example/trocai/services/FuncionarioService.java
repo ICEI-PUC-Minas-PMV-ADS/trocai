@@ -74,4 +74,7 @@ public class FuncionarioService  implements UserDetailsService {
         funcionarioRepository.saveAll(List.of(to, from));
     }
 
+    public Optional<Funcionario> findFuncionarioById(Long id) {
+        return funcionarioRepository.findFuncionarioById(id);
+    }
 }
