@@ -48,6 +48,8 @@ public class PedidoDeTrocaService {
                 .status(pedidoDTO.getStatus())
                 .build();
 
+        funcionarioService.updatePedidosDeTrocaList(pedidoDeTroca);
+
         this.pedidoDeTrocaRepository.save(pedidoDeTroca);
     }
 
