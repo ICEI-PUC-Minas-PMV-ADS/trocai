@@ -18,8 +18,23 @@ public class PedidoDeTrocaController {
     private final PedidoDeTrocaService pedidoDeTrocaService;
 
     @GetMapping
-    public List<PedidoDeTroca> fetchAllPedidoDeTroca() {
-        return pedidoDeTrocaService.getAllPedidoDeTroca();
+    public List<PedidoDeTroca> fetchAllPedidosDeTroca() {
+        return pedidoDeTrocaService.getAllPedidosDeTroca();
+    }
+
+    @GetMapping("/funcionario")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@RequestParam String email) throws Exception{
+        return pedidoDeTrocaService.findPedidosDeTrocaPorFuncionario(email);
+    }
+
+    @GetMapping("/{funcionarioId}/enviados")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable Integer id) throws Exception {
+        return pedidoDeTrocaService.findPedidosDeTrocaEnviadosPorFuncionario(id);
+    }
+
+    @GetMapping("/{funcionarioId}/recebidos")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable Integer id) throws Exception{
+        return pedidoDeTrocaService.findPedidosDeTrocaRecebidosPorFuncionario(id);
     }
 
     @PostMapping

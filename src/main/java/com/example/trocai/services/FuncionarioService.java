@@ -6,6 +6,8 @@ import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static com.example.trocai.models.Funcionario.SEQUENCE_NAME;
+import static com.mongodb.client.model.Filters.in;
 
 @AllArgsConstructor
 @Service
@@ -50,8 +54,8 @@ public class FuncionarioService  implements UserDetailsService {
 //        LocalDate dia = LocalDate.of(year, month, day);
 //        return funcionarioRepository.getFuncionarioByTurnoLivre(dia,Turno.valueOf(turno));
 //    }
-    public List<Funcionario> getFuncionarioByTurnoPrincipal(@RequestParam String turno){
-        return funcionarioRepository.getFuncionarioByTurnoPrincipal(Turno.valueOf(turno));
+    public List<Funcionario> findFuncionariosByTurnoPrincipal(@RequestParam String turno){
+        return funcionarioRepository.findFuncionariosByTurnoPrincipal(Turno.valueOf(turno));
     }
 
     @Override
@@ -76,5 +80,13 @@ public class FuncionarioService  implements UserDetailsService {
 
     public Optional<Funcionario> findFuncionarioById(Long id) {
         return funcionarioRepository.findFuncionarioById(id);
+    }
+
+    public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, Turno turno) {
+//        String turnoLivre = turno.name();
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("funcionarios.escalaMensal.diasDeTrabalho.dia").is(date)
+//                .nin(turnoLivre).in("funcionarios.escalaMensal.diasDeTrabalho.dia.turnosOcupados"));
+        return funcionarioRepository.findFuncionariosByTurnoLivreAndDate(date, turno);
     }
 }

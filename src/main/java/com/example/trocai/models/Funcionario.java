@@ -25,7 +25,7 @@ public class Funcionario {
     public static final String SEQUENCE_NAME = "funcionario_sequence";
 
     @Id
-    private int id;
+    private Integer id;
     private String nome;
     private String sobreNome;
     private String nomeCompleto;
@@ -63,5 +63,10 @@ public class Funcionario {
             this.pedidosDeTroca.add(pedido);
         }
     }
+
+    public void loadTurnosDeTrabalhoDefault(){
+        this.escalaMensal.setTurnosDefault(turnoPrincipal);
+    }
+
 
 }

@@ -1,10 +1,8 @@
 package com.example.trocai;
 
 import com.example.trocai.models.*;
-import com.example.trocai.repositories.FuncionarioRepository;
 import com.example.trocai.services.FuncionarioService;
 import com.example.trocai.services.PedidoDeTrocaService;
-import com.example.trocai.services.SequenceGeneratorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,67 +30,60 @@ public class TrocaiApplication {
 //    @Bean
 //    CommandLineRunner runner(FuncionarioService funcionarioService, PedidoDeTrocaService pedidoDeTrocaService) {
 //
-//        EscalaMensal escalaMensal = new EscalaMensal(2022, 9);
-//
 //        return args -> {
 //            Funcionario paola = new Funcionario("Paola", "Bracho",
-//                    Turno.TARDE, Cargo.ATENDENTE, "paola@bairro.com", "senha1234", "31-30301313", escalaMensal
+//                    Turno.TARDE, Cargo.ATENDENTE, "paola@bairro.com", "senha1234", "31-30301313", new EscalaMensal(2022, 9)
 //            );
-//            paola.setTurnoPrincipal(Turno.MANHA);
+//
 //            Funcionario paulina = new Funcionario("Paulina", "Bracho",
-//                    Turno.MANHA, Cargo.ATENDENTE, "paulina@bairro.com", "senha1234", "31-30301515", escalaMensal
+//                    Turno.MANHA, Cargo.ATENDENTE, "paulina@bairro.com", "senha1234", "31-30301515", new EscalaMensal(2022, 9)
 //            );
-//            paulina.setTurnoPrincipal(Turno.TARDE);
+//
 //            Funcionario carlos = new Funcionario("Carlos", "Daniel",
-//                    Turno.MANHA, Cargo.CAIXA, "carlosdaniel@bairro.com","senha1234","31-30301414", escalaMensal
+//                    Turno.MANHA, Cargo.CAIXA, "carlosdaniel@bairro.com","senha1234","31-30301414", new EscalaMensal(2022, 9)
 //            );
-//            carlos.setTurnoPrincipal(Turno.MANHA);
+//
 //            Funcionario lalita = new Funcionario("Lalita", "Perez",
-//                    Turno.TARDE, Cargo.CAIXA, "lalita@bairro.com","senha1234","31-30301616", escalaMensal
+//                    Turno.TARDE, Cargo.CAIXA, "lalita@bairro.com","senha1234","31-30301616", new EscalaMensal(2022, 9)
 //            );
-//            lalita.setTurnoPrincipal(Turno.TARDE);
+//
 //            Funcionario douglas = new Funcionario("Douglas", "Maldonado",
-//                    Turno.TARDE, Cargo.COZINHEIRO, "douglas@bairro.com","senha1234","31-30301717", escalaMensal
+//                    Turno.TARDE, Cargo.COZINHEIRO, "douglas@bairro.com","senha1234","31-30301717", new EscalaMensal(2022, 9)
 //            );
-//            douglas.setTurnoPrincipal(Turno.MANHA);
+//
 //            Funcionario willy = new Funcionario("Willy", "Montero",
-//                    Turno.MANHA, Cargo.COZINHEIRO, "willy@bairro.com","senha1234","31-30301919", escalaMensal
+//                    Turno.MANHA, Cargo.COZINHEIRO, "willy@bairro.com","senha1234","31-30301919", new EscalaMensal(2022, 9)
 //            );
-//            willy.setTurnoPrincipal(Turno.TARDE);
+//
 //            Funcionario piedad = new Funcionario("Piedad", "Bracho",
-//                    Turno.TARDE, Cargo.SUPERVISOR, "piedad@bairro.com","senha1234","31-30301111", escalaMensal
+//                    Turno.TARDE, Cargo.SUPERVISOR, "piedad@bairro.com","senha1234","31-30301111", new EscalaMensal(2022, 9)
 //            );
-//            piedad.setTurnoPrincipal(Turno.MANHA);
+//
 //            Funcionario estefania = new Funcionario("Estefania", "Bracho",
-//                    Turno.MANHA, Cargo.SUPERVISOR, "estefania@bairro.com","senha1234","31-30301212", escalaMensal
+//                    Turno.MANHA, Cargo.SUPERVISOR, "estefania@bairro.com","senha1234","31-30301212", new EscalaMensal(2022, 9)
 //            );
-//            estefania.setTurnoPrincipal(Turno.TARDE);
+//
 //
 //            List<Funcionario> funcionarioList = List.of(paola, paulina, carlos, douglas, lalita, piedad, willy, estefania);
 //
-//            //Hashing password
-////            funcionarioList.forEach(func -> func.setSenha(bCryptPasswordEncoder().encode(func.getSenha())));
-//
-//
-//
 //            for (Funcionario f : funcionarioList) {
 //
-//                Query query = new Query();
-//                query.addCriteria(Criteria.where("email").is(f.getEmail()));
+//                //carrega turnos de trabalho de acordo com turno principal assignado
+//
+//                f.loadTurnosDeTrabalhoDefault();
+//
 //                funcionarioService.findFuncionarioByEmail(f.getEmail()).ifPresentOrElse(
 //                        x -> System.out.println("Funcionario com email : " + x.getEmail() + " já existe."),
 //                        () -> {
 //                            System.out.println("Insertando funcionario " + f);
-////                            f.setId(generatorService.getSequenceNumber(com.example.trocai.models.Funcionario.SEQUENCE_NAME));
 //                            funcionarioService.createFuncionario(f);
 //                        });
 //            }
 //
 //            PedidoDeTroca pedidoDeTroca = new PedidoDeTroca(paola, paulina, LocalDate.of(2022, Month.of(9), 10), Turno.MANHA);
-////            pedidoDeTroca.setId(generatorService.getSequenceNumber( com.example.trocai.models.PedidoDeTroca.SEQUENCE_NAME));
-////            pedidoDeTroca.setStatus(Status.PENDING);
+//            pedidoDeTroca.setStatus(Status.PENDING);
 //
-//            pedidoDeTrocaService.createPedidoDeTroca(pedidoDeTroca);
+//            pedidoDeTrocaService.insertPedidoDeTroca(pedidoDeTroca);
 //
 //        };
 //

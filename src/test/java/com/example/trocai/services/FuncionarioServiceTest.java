@@ -59,8 +59,8 @@ public class FuncionarioServiceTest {
     public void shouldReturnFuncionariosByTurnoPrincipal() {
         Turno turno = Turno.NOITE;
 
-        when(funcionarioService.getFuncionarioByTurnoPrincipal("NOITE")).thenReturn(Arrays.asList(funcionario));
-        assertEquals(Arrays.asList(funcionario), funcionarioRepository.getFuncionarioByTurnoPrincipal(turno));
+        when(funcionarioService.findFuncionariosByTurnoPrincipal("NOITE")).thenReturn(Arrays.asList(funcionario));
+        assertEquals(Arrays.asList(funcionario), funcionarioRepository.findFuncionariosByTurnoPrincipal(turno));
         assertEquals(funcionario.getEmail(), "sagan@email.com");
     }
 

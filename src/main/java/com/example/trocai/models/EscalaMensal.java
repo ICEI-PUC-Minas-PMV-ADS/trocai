@@ -9,8 +9,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Document
+@Data
 public class EscalaMensal {
 
     protected int ano;
@@ -22,38 +22,45 @@ public class EscalaMensal {
     public EscalaMensal(int ano, int mes) {
         this.ano = ano;
         this.mes = mes;
-        this.diasDoMes = this.getDiasDoMes();
-        this.diasDeTrabalho = this.getDiasDeTrabalho();
-        this.diasLivres = this.getDiasLivres();
+        this.diasDoMes = new ArrayList<>();
+        this.diasDeTrabalho = new ArrayList<>();
+        this.diasLivres = new ArrayList<>();
     }
 
 
-    private List<LocalDate> getDiasDoMes() {
+    public void inicializarEscala(){
+        this.inicializarDiasDoMes();
+        this.inicializarDiasDeTrabalho();
+        this.inicializarDiasLivres();
+
+    }
+
+    private void inicializarDiasDoMes() {
         int cont = 1;
-        List<LocalDate> listaDeDias = new ArrayList<>();
         while (cont <= Month.of(this.mes).maxLength()) {
             LocalDate hoje = LocalDate.of(ano, mes, cont);
-            listaDeDias.add(hoje);
+            this.diasDoMes.add(hoje);
             cont++;
         }
-        return listaDeDias;
+
     }
 
-    private List<Dia> getDiasDeTrabalho(){
-        List<Dia> diasDeTrabalho = new ArrayList<>();
+    private void inicializarDiasDeTrabalho(){
         this.diasDoMes.stream().
                 filter(d -> d.getDayOfWeek() != DayOfWeek.SUNDAY | d.getDayOfWeek() != DayOfWeek.SUNDAY)
-                .forEach(d-> diasDeTrabalho.add(new Dia(d, false)));
+                .forEach(d-> this.diasDeTrabalho.add(new Dia(d, false)));
 
-        return diasDeTrabalho;
     }
 
-    private List<Dia> getDiasLivres() {
-        List<Dia> diasLivres = new ArrayList<>();
+    private void inicializarDiasLivres() {
         this.diasDoMes.stream().
                 filter(d -> d.getDayOfWeek() == DayOfWeek.SUNDAY | d.getDayOfWeek() == DayOfWeek.SUNDAY)
-                .forEach(d-> diasLivres.add(new Dia(d, true)));
-        return diasLivres;
+                .forEach(d-> this.diasLivres.add(new Dia(d, true)));
+    }
+
+    /* A partir do turno principal do funcionário, determina os turnos ocupados para cada dia do mês */
+    protected void setTurnosDefault(Turno turnoPrincipal) {
+        this.diasDeTrabalho.forEach(dT -> dT.turnosOcupados.add(turnoPrincipal));
     }
 
 }

@@ -24,11 +24,12 @@ public class PedidoDeTrocaService {
 
     private final PedidoDeTrocaRepository pedidoDeTrocaRepository;
 
-    public List<PedidoDeTroca> getAllPedidoDeTroca() {
+    public List<PedidoDeTroca> getAllPedidosDeTroca() {
         return pedidoDeTrocaRepository.findAll();
     }
 
-    public PedidoDeTroca createPedidoDeTroca(PedidoDeTroca pedido) {
+    //guarda pedido e atualiza lista de pedidos de troca de cada funcionario envolvido
+    public PedidoDeTroca insertPedidoDeTroca(PedidoDeTroca pedido) {
         pedido.setId(generatorService.getSequenceNumber(SEQUENCE_NAME));
         pedido.setStatus(Status.PENDING);
         funcionarioService.updatePedidosDeTrocaList(pedido);
@@ -55,10 +56,32 @@ public class PedidoDeTrocaService {
 
     private Funcionario getFuncionarioById(Long idFuncionarioSolicitante) throws Exception {
         try {
-            return this.funcionarioService.findFuncionarioById(idFuncionarioSolicitante).get();
+            return funcionarioService.findFuncionarioById(idFuncionarioSolicitante).get();
         } catch (Exception e) {
-            throw new Exception("Funcionário não existe");
+            throw new Exception("Funcionário não existe.");
         }
     }
 
+    public List<PedidoDeTroca> findPedidosDeTrocaPorFuncionario(String email) throws Exception {
+        try {
+            Integer funcionarioId = funcionarioService.findFuncionarioByEmail(email).get().getId();
+            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionarioOrToFuncionario(funcionarioId);
+        } catch (Exception e) {
+            throw new Exception("Funcionário não existe.");
+        }
+    }
+    public List<PedidoDeTroca> findPedidosDeTrocaEnviadosPorFuncionario(Integer id) throws Exception{
+        try {
+            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(id);
+        } catch (Exception e) {
+            throw new Exception("Funcionário não existe.");
+        }
+    }
+    public List<PedidoDeTroca> findPedidosDeTrocaRecebidosPorFuncionario(Integer id) throws Exception {
+        try {
+            return pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(id);
+        } catch (Exception e) {
+            throw new Exception("Funcionário não existe.");
+        }
+    }
 }

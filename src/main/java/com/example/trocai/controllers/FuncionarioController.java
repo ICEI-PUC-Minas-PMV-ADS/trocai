@@ -8,6 +8,7 @@ import com.example.trocai.services.FuncionarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,14 +28,16 @@ public class FuncionarioController {
     public String createFuncionario(@RequestParam String nome, @RequestParam String sobreNome, @RequestParam String turnoPrincipal, @RequestParam String cargo, @RequestParam String email, @RequestParam String senha, @RequestParam String telefone){
         return funcionarioService.createFuncionario(new Funcionario(nome, sobreNome, Turno.valueOf(turnoPrincipal), Cargo.valueOf(cargo), email, senha, telefone, new EscalaMensal(2022,9) ));
     }
-//    //TODO: fix mappings
-//    @GetMapping("/funcionariosPorTurnoLivre")
-//    public List<Funcionario> fetchFuncionariosPorTurnoLivre(@RequestParam int day, int month, int year, String turno){
-//        return funcionarioService.getFuncionarioByTurnoLivre(day, month, year, turno);
-//    }
+
+    //TODO: accept string for date
+    @GetMapping("/turnoLivre")
+    public List<Funcionario> fetchFuncionariosPorTurnoLivre(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String turno){
+        LocalDate searchDate = LocalDate.of(year, month, day);
+        return funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, Turno.valueOf(turno));
+    }
 
     @GetMapping("/turno")
     public List<Funcionario> fetchFuncionariosPorTurnoPrincipal(@RequestParam String turno){
-        return  funcionarioService.getFuncionarioByTurnoPrincipal(turno);
+        return  funcionarioService.findFuncionariosByTurnoPrincipal(turno);
     }
 }
