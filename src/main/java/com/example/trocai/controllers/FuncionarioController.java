@@ -26,14 +26,15 @@ public class FuncionarioController {
     //TODO: improve with request body
     @PostMapping
     public String createFuncionario(@RequestParam String nome, @RequestParam String sobreNome, @RequestParam String turnoPrincipal, @RequestParam String cargo, @RequestParam String email, @RequestParam String senha, @RequestParam String telefone){
-        return funcionarioService.createFuncionario(new Funcionario(nome, sobreNome, Turno.valueOf(turnoPrincipal), Cargo.valueOf(cargo), email, senha, telefone, new EscalaMensal(2022,9) ));
+        return funcionarioService.createFuncionario(new Funcionario(nome, sobreNome, Turno.valueOf(turnoPrincipal.toUpperCase()), Cargo.valueOf(cargo), email, senha, telefone, new EscalaMensal(2022,9) ));
     }
 
-    //TODO: accept string for date
+    //TODO: accept string for date - Make it work!!
     @GetMapping("/turnoLivre")
     public List<Funcionario> fetchFuncionariosPorTurnoLivre(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String turno){
         LocalDate searchDate = LocalDate.of(year, month, day);
-        return funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, Turno.valueOf(turno));
+        Turno turnoBuscado = Turno.valueOf(turno.toUpperCase());
+        return funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, turnoBuscado);
     }
 
     @GetMapping("/turno")

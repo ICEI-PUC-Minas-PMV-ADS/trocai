@@ -16,6 +16,8 @@ public interface FuncionarioRepository
 
     List<Funcionario> findFuncionariosByTurnoPrincipal(Turno turno);
 
+    Optional<Funcionario> findFuncionarioById(Integer id);
+
     Optional<Funcionario> findFuncionarioById(Long id);
 
     @Query("{'funcionarios.escalaMensal.diasDeTrabalho.dia': ?0, 'funcionarios.escalaMensal.diasDeTrabalho.dia.turnosOcupados': {$nin: [?1]}}")

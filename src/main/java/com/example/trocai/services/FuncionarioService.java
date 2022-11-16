@@ -6,8 +6,6 @@ import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.FuncionarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.trocai.models.Funcionario.SEQUENCE_NAME;
-import static com.mongodb.client.model.Filters.in;
 
 @AllArgsConstructor
 @Service
@@ -78,7 +75,11 @@ public class FuncionarioService  implements UserDetailsService {
         funcionarioRepository.saveAll(List.of(to, from));
     }
 
+
     public Optional<Funcionario> findFuncionarioById(Long id) {
+        return funcionarioRepository.findFuncionarioById(id);
+    }
+    public Optional<Funcionario> findFuncionarioById(Integer id) {
         return funcionarioRepository.findFuncionarioById(id);
     }
 

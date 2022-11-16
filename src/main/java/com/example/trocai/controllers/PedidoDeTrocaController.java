@@ -2,14 +2,12 @@ package com.example.trocai.controllers;
 
 import com.example.trocai.dto.PedidoDeTrocaDTO;
 import com.example.trocai.models.PedidoDeTroca;
-import com.example.trocai.models.Turno;
 import com.example.trocai.services.PedidoDeTrocaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,18 +22,18 @@ public class PedidoDeTrocaController {
         return pedidoDeTrocaService.getAllPedidosDeTroca();
     }
 
-    @GetMapping("/funcionario")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@RequestParam String email) throws Exception{
-        return pedidoDeTrocaService.findPedidosDeTrocaPorFuncionario(email);
+    @GetMapping("/{funcionarioId}")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@PathVariable("funcionarioId") String id) throws Exception{
+        return pedidoDeTrocaService.findPedidosDeTrocaPorFuncionario(Integer.valueOf(id));
     }
 
-    @GetMapping("/{funcionarioId}/enviados")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable String id) throws Exception {
+    @GetMapping("/enviados/{funcionarioId}")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception {
         return pedidoDeTrocaService.findPedidosDeTrocaEnviadosPorFuncionario(Integer.valueOf(id));
     }
 
-    @GetMapping("/{funcionarioId}/recebidos")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable String id) throws Exception{
+    @GetMapping("/recebidos/{funcionarioId}")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception{
         return pedidoDeTrocaService.findPedidosDeTrocaRecebidosPorFuncionario(Integer.valueOf(id));
     }
 

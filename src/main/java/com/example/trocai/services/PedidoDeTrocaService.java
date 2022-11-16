@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.trocai.models.PedidoDeTroca.SEQUENCE_NAME;
@@ -54,7 +55,7 @@ public class PedidoDeTrocaService {
         this.pedidoDeTrocaRepository.save(pedidoDeTroca);
     }
 
-    private Funcionario getFuncionarioById(Long idFuncionarioSolicitante) throws Exception {
+    public Funcionario getFuncionarioById(Long idFuncionarioSolicitante) throws Exception {
         try {
             return funcionarioService.findFuncionarioById(idFuncionarioSolicitante).get();
         } catch (Exception e) {
@@ -62,24 +63,33 @@ public class PedidoDeTrocaService {
         }
     }
 
-    public List<PedidoDeTroca> findPedidosDeTrocaPorFuncionario(String email) throws Exception {
+    public List<PedidoDeTroca> findPedidosDeTrocaPorFuncionario(Integer funcionarioID) throws Exception {
         try {
-            Integer funcionarioId = funcionarioService.findFuncionarioByEmail(email).get().getId();
-            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionarioOrToFuncionario(funcionarioId);
+            List<PedidoDeTroca> pedidos = new ArrayList<>();
+            Funcionario funcionario = funcionarioService.findFuncionarioById(funcionarioID).get();
+            pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario));
+            pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario));
+
+            return pedidos;
         } catch (Exception e) {
             throw new Exception("Funcionário não existe.");
         }
     }
+
+    //TODO - fix possible NPE's con los optionals
     public List<PedidoDeTroca> findPedidosDeTrocaEnviadosPorFuncionario(Integer id) throws Exception{
         try {
-            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(id);
+            Funcionario funcionario = funcionarioService.findFuncionarioById(id).get();
+            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario);
         } catch (Exception e) {
             throw new Exception("Funcionário não existe.");
         }
     }
     public List<PedidoDeTroca> findPedidosDeTrocaRecebidosPorFuncionario(Integer id) throws Exception {
         try {
-            return pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(id);
+
+            Funcionario funcionario = funcionarioService.findFuncionarioById(id).get();
+            return pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario);
         } catch (Exception e) {
             throw new Exception("Funcionário não existe.");
         }
