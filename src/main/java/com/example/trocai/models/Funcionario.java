@@ -64,8 +64,11 @@ public class Funcionario {
         }
     }
 
+    public void inicializaEscala(){
+        this.escalaMensal.inicializarEscala();
+    }
     public void loadTurnosDeTrabalhoDefault(){
-        this.escalaMensal.setTurnosDefault(turnoPrincipal);
+        this.escalaMensal.inicializaTurnosDiasDeTrabalho(turnoPrincipal);
     }
 
 

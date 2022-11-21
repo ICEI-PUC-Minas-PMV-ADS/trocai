@@ -31,14 +31,14 @@ public class FuncionarioController {
 
     //TODO: accept string for date - Make it work!!
     @GetMapping("/turnoLivre")
-    public List<Funcionario> fetchFuncionariosPorTurnoLivre(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String turno){
+    public List<Funcionario> fetchFuncionariosPorTurnoLivreAndDate(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String turno){
         LocalDate searchDate = LocalDate.of(year, month, day);
-        Turno turnoBuscado = Turno.valueOf(turno.toUpperCase());
-        return funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, turnoBuscado);
+        return funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, turno);
     }
 
     @GetMapping("/turno")
     public List<Funcionario> fetchFuncionariosPorTurnoPrincipal(@RequestParam String turno){
         return  funcionarioService.findFuncionariosByTurnoPrincipal(turno);
     }
+
 }

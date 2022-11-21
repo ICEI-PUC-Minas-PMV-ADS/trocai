@@ -22,18 +22,18 @@ public class PedidoDeTrocaController {
         return pedidoDeTrocaService.getAllPedidosDeTroca();
     }
 
-    @GetMapping("/{funcionarioId}")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@PathVariable("funcionarioId") String id) throws Exception{
+    @GetMapping("/porFuncionario/{funcionarioId}")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@PathVariable("funcionarioId") String id) throws Exception {
         return pedidoDeTrocaService.findPedidosDeTrocaPorFuncionario(Integer.valueOf(id));
     }
 
-    @GetMapping("/enviados/{funcionarioId}")
+    @GetMapping("/porFuncionario/{funcionarioId}/enviados")
     public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception {
         return pedidoDeTrocaService.findPedidosDeTrocaEnviadosPorFuncionario(Integer.valueOf(id));
     }
 
-    @GetMapping("/recebidos/{funcionarioId}")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception{
+    @GetMapping("/porFuncionario/{funcionarioId}/recebidos")
+    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception {
         return pedidoDeTrocaService.findPedidosDeTrocaRecebidosPorFuncionario(Integer.valueOf(id));
     }
 
@@ -42,6 +42,13 @@ public class PedidoDeTrocaController {
     public ResponseEntity<Void> createPedidoDeTroca(@RequestBody PedidoDeTrocaDTO pedidoDTO) throws Exception {
         pedidoDeTrocaService.criarPedidoTroca(pedidoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    //TODO - isso vai alterar o status de pending para rejected ou accepted e disparar o workflow de atualilzação de escalas para os envolvidos
+    @PatchMapping("/{trocaId}")
+    public String replyPedidoDeTroca(@PathVariable("trocaId") String id, @RequestBody String yesOrNo) throws Exception {
+//        pedidoDeTrocaService.responderPedidoTroca(token);
+       return "Not yet, bebê!";
     }
 
 }

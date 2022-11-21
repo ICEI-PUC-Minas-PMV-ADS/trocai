@@ -52,7 +52,7 @@ public class FuncionarioService  implements UserDetailsService {
 //        return funcionarioRepository.getFuncionarioByTurnoLivre(dia,Turno.valueOf(turno));
 //    }
     public List<Funcionario> findFuncionariosByTurnoPrincipal(@RequestParam String turno){
-        return funcionarioRepository.findFuncionariosByTurnoPrincipal(Turno.valueOf(turno));
+        return funcionarioRepository.findFuncionariosByTurnoPrincipal(Turno.valueOf(turno.toUpperCase()));
     }
 
     @Override
@@ -83,11 +83,11 @@ public class FuncionarioService  implements UserDetailsService {
         return funcionarioRepository.findFuncionarioById(id);
     }
 
-    public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, Turno turno) {
-//        String turnoLivre = turno.name();
-//        Query query = new Query();
-//        query.addCriteria(Criteria.where("funcionarios.escalaMensal.diasDeTrabalho.dia").is(date)
-//                .nin(turnoLivre).in("funcionarios.escalaMensal.diasDeTrabalho.dia.turnosOcupados"));
-        return funcionarioRepository.findFuncionariosByTurnoLivreAndDate(date, turno);
+    public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, String turno) {
+
+        Turno turnoBuscado = Turno.valueOf(turno.toUpperCase());
+        return funcionarioRepository.findFuncionariosByTurnoLivreAndDate(date, turnoBuscado);
     }
+
+
 }

@@ -68,8 +68,9 @@ public class TrocaiApplication {
 //
 //            for (Funcionario f : funcionarioList) {
 //
-//                //carrega turnos de trabalho de acordo com turno principal assignado
-//
+//                //inicializa escala
+//                f.inicializaEscala();
+//                //carrega turnos de trabalho para dias de trabalho de acordo com turno principal assignado
 //                f.loadTurnosDeTrabalhoDefault();
 //
 //                funcionarioService.findFuncionarioByEmail(f.getEmail()).ifPresentOrElse(

@@ -4,8 +4,8 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document
 @Data
@@ -13,11 +13,13 @@ public class Dia {
 
     LocalDate dia;
     boolean diaLivre;
-    List<Turno> turnosOcupados;
+    Set<Turno> turnosOcupados;
+    Set<Turno> turnosLivres;
 
     public Dia(LocalDate dia, boolean diaLivre) {
         this.dia = dia;
         this.diaLivre = diaLivre;
-        this.turnosOcupados = new ArrayList<>();
+        this.turnosOcupados = new HashSet<>();
+        this.turnosLivres = new HashSet<>();
     }
 }
