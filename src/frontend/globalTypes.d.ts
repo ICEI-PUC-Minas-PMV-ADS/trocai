@@ -108,3 +108,8 @@ type NewChangeRequest = {
 
 type Shift = "MANHA" | "TARDE" | "NOITE";
 type Status = "confirmado" | "recusado" | "pendente";
+
+type RequestReply = {
+  trocaId: number;
+  yesOrNo: string;
+};

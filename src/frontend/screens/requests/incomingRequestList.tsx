@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ActivityIndicator, Card } from "react-native-paper";
 import styled from "styled-components/native";
-import { FlatList, ListRenderItem, Platform } from "react-native";
+import { FlatList, ListRenderItem, Platform, View } from "react-native";
+import { useDispatch } from "react-redux";
 import { RootStackScreenProps } from "../../types";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
@@ -12,7 +13,8 @@ import {
   SubmitPressableText,
 } from "../../common/styled";
 import Colors from "../../constants/Colors";
-import { fetchAllChangeRequest } from "../../services/api";
+import { fetchAllChangeRequest, replyToRequest } from "../../services/api";
+import setGlobalNotification from "../../actions/globalNotificationActions";
 
 function IncomingRequestList({
   navigation,
@@ -22,6 +24,8 @@ function IncomingRequestList({
   >();
   const [loading, setLoading] = useState(false);
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
+  const [waitingResponse, setWaitingResponse] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
     fetchAllChangeRequest().then((res) => {
@@ -43,12 +47,35 @@ function IncomingRequestList({
   );
 
   const handleConfirmAction = () => {
+    let answer;
     if (!showDialog) return;
-    if (showDialog.action === "accept")
-      console.log(showDialog.id, showDialog.action);
-    if (showDialog.action === "refuse")
-      console.log(showDialog.id, showDialog.action);
+    if (showDialog.action === "accept") answer = "yes";
+    if (showDialog.action === "refuse") answer = "no";
+    if (!answer) return;
+
+    setWaitingResponse(true);
+    setShowDialog(undefined);
+    replyToRequest({
+      trocaId: showDialog.id,
+      yesOrNo: answer,
+    })
+      .then(() => {
+        setWaitingResponse(false);
+        setGlobalNotification(dispatch, `Resposta enviada`, "success");
+      })
+      .catch((err) => {
+        setWaitingResponse(false);
+        setGlobalNotification(dispatch, err.message, "error");
+      });
   };
+
+  if (waitingResponse) {
+    return (
+      <View style={{ margin: 50 }}>
+        <ActivityIndicator animating color={Colors.light.red} />
+      </View>
+    );
+  }
 
   return (
     <StyledSelectedBike>

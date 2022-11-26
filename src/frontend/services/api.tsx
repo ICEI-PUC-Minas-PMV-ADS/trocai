@@ -74,3 +74,8 @@ export const createRequest = (
   newRequest: NewChangeRequest
 ): Promise<{ data: UserObject }> =>
   TROCAI_API.post(`${TROCAI_PATHS.CHANGE_REQUESTS}`, newRequest);
+
+export const replyToRequest = (
+  reply: RequestReply
+): Promise<{ data: UserObject }> =>
+  TROCAI_API.post(`${TROCAI_PATHS.CHANGE_REQUESTS}/${reply.trocaId}`, reply);
