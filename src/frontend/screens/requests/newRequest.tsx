@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Platform, View, FlatList, ListRenderItem } from "react-native";
+import { Platform, View, FlatList, ListRenderItem, Text } from "react-native";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
@@ -89,7 +89,12 @@ function NewRequest({
     <StyledNewRequest>
       <PaddingView>
         <PageHeader pageName="Nova Solicitação" navigation={navigation} />
+
         <StyledNewRequestForm>
+          <Text style={{ marginBottom: 20 }}>
+            Escolha uma data e um período e clique em Procurar para ver os
+            funcionários disponíveis para troca.
+          </Text>
           {Platform.OS === "web" ? (
             <WebPicker
               currentValue={moment(timestamp).format("YYYY-MM-DD")}
