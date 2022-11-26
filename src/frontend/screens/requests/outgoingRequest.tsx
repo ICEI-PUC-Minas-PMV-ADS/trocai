@@ -1,8 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components/native";
 import { FlatList, ListRenderItem, Platform } from "react-native";
 import moment from "moment";
 import { ActivityIndicator, Card } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import { RootStackScreenProps } from "../../types";
 import PageHeader from "../../common/pageHeader";
 import ConfirmationDialog from "../../common/confirmationDialog";
@@ -21,13 +23,20 @@ function OutgoingRequestList({
   const [showDialog, setShowDialog] = useState<{ id: number } | undefined>();
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    fetchAllChangeRequest().then((res) => {
-      setChangeRequests(res.data);
-      setLoading(false);
-    });
-  }, []);
+  const { loggedUser } = useSelector(
+    (state: { loggedUser: UserObject }) => state
+  );
+  useFocusEffect(
+    React.useCallback(() => {
+      setChangeRequests([]);
+      setLoading(true);
+      fetchAllChangeRequest().then((res) => {
+        setChangeRequests(res.data);
+        setLoading(false);
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loggedUser.token])
+  );
 
   console.log(changeRequests);
   const renderItem: ListRenderItem<ChangeRequest> = ({ item }) => (
