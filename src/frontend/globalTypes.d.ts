@@ -27,6 +27,8 @@ interface IlocalStorageProfile {
 }
 interface UserObject {
   result: IStorageResult;
+  username?: string;
+  id?: number;
   token: string;
 }
 

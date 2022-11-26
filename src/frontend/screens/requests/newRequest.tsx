@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { ActivityIndicator, Card, RadioButton } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 import PageHeader from "../../common/pageHeader";
 import {
   SubmitPressableText,
@@ -16,18 +17,27 @@ import {
 import Colors from "../../constants/Colors";
 import { RootStackScreenProps } from "../../types";
 import WebPicker from "./webPicker";
-import { fetchEmployees } from "../../services/api";
+import { createRequest, fetchEmployees } from "../../services/api";
 import ConfirmationDialog from "../../common/confirmationDialog";
+import setGlobalNotification from "../../actions/globalNotificationActions";
 
 function NewRequest({
   navigation,
 }: RootStackScreenProps<"NewRequest">): JSX.Element {
   const [openStart, setOpenStart] = useState(false);
-  const [timestamp, setTimestamp] = useState(new Date().getTime());
+  const [timestamp, setTimestamp] = useState(
+    new Date(new Date("September 2, 2022 00:00:00")).getTime()
+  );
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>();
   const [selectedShift, setSelectedShift] = useState<Shift>("MANHA");
   const [loading, setLoading] = useState(false);
+  const [waitingResponse, setWaitingResponse] = useState(false);
+  const dispatch = useDispatch();
+
+  const { loggedUser } = useSelector(
+    (state: { loggedUser: UserObject }) => state
+  );
 
   useEffect(() => {
     // const { data } = await fetchEmployees();
@@ -41,10 +51,25 @@ function NewRequest({
     });
   }, [selectedShift]);
 
-  console.log(employees);
   function handleNewRequest(): void {
+    setWaitingResponse(true);
+    createRequest({
+      dataDaTroca: moment(timestamp).format("YYYY-MM-DD"),
+      idFuncionarioSolicitado: Number(selectedEmployee?.id),
+      idFuncionarioSolicitante: loggedUser.id || 1,
+      turnoDaTroca: selectedShift,
+    })
+      .then(() => {
+        setWaitingResponse(false);
+        setGlobalNotification(dispatch, `Pedido criado`, "success");
+        setSelectedEmployee(undefined);
+      })
+      .catch((err) => {
+        setWaitingResponse(false);
+        setGlobalNotification(dispatch, err.message, "error");
+        setSelectedEmployee(undefined);
+      });
     console.log("submit pedido de troca para", selectedEmployee);
-    setSelectedEmployee(undefined);
   }
 
   // precisa ter um request de usuários
@@ -52,6 +77,14 @@ function NewRequest({
   const renderItem: ListRenderItem<Employee> = ({ item }) => (
     <Item employee={item} setShowDialog={setSelectedEmployee} />
   );
+
+  if (waitingResponse) {
+    return (
+      <View style={{ margin: 50 }}>
+        <ActivityIndicator animating color={Colors.light.red} />
+      </View>
+    );
+  }
   return (
     <StyledNewRequest>
       <PaddingView>
@@ -151,7 +184,7 @@ function NewRequest({
         <FlatList
           data={employees}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => `${item.id}`}
           style={{ width: Platform.OS === "web" ? 400 : "100%", height: "50%" }}
         />
       </PaddingView>
