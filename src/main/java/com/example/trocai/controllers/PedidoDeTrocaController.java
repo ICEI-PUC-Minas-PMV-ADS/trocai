@@ -64,7 +64,6 @@ public class PedidoDeTrocaController {
        return "Not yet, bebê!";
     }
 
-
     @GetMapping("/solicitacoes")
     public ResponseEntity<List<SolicitacaoDeTrocaDTO>> getPedidosTrocaPorFuncionarioLogado(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
@@ -77,4 +76,6 @@ public class PedidoDeTrocaController {
         if (solicitacaoDeTrocaDTOList.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok().body(solicitacaoDeTrocaDTOList);
     }
+
+
 }

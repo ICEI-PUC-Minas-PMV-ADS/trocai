@@ -38,6 +38,15 @@ public class PedidoDeTrocaService {
         return pedidoDeTrocaRepository.findAll();
     }
 
+    // this method createPedidoDeTroca: deprecated
+    public PedidoDeTroca createPedidoDeTroca(PedidoDeTroca pedido) {
+        pedido.setId(generatorService.getSequenceNumber(SEQUENCE_NAME));
+        pedido.setStatus(Status.PENDING);
+        funcionarioService.updatePedidosDeTrocaList(pedido);
+        return pedidoDeTrocaRepository.save(pedido);
+    }
+
+
     //guarda pedido e atualiza lista de pedidos de troca de cada funcionario envolvido
     public PedidoDeTroca insertPedidoDeTroca(PedidoDeTroca pedido) {
         pedido.setId(generatorService.getSequenceNumber(SEQUENCE_NAME));
@@ -122,6 +131,7 @@ public class PedidoDeTrocaService {
 
         return new ArrayList<>();
     }
+
 
     private SolicitacaoDeTrocaDTO buildSolicitacaoTrocaDTO(PedidoDeTroca pedidoDeTroca) {
         return SolicitacaoDeTrocaDTO.builder()
