@@ -37,6 +37,7 @@ function IncomingRequestList({
       from={item.fromFuncionario}
       date={item.dia}
       id={item.id}
+      turno={item.turno}
       setShowDialog={setShowDialog}
     />
   );
@@ -84,11 +85,13 @@ function Item({
   from,
   date,
   id,
+  turno,
   setShowDialog,
 }: {
   from: Employee;
   date: string;
   id: number;
+  turno: Shift;
   setShowDialog: Dispatch<
     SetStateAction<{ id: number; action: "accept" | "refuse" } | undefined>
   >;
@@ -99,6 +102,7 @@ function Item({
         <ItemContainer>
           <ItemText>{from?.nomeCompleto}</ItemText>
           <ItemText>{date}</ItemText>
+          <ItemText>{turno}</ItemText>
           <ItemAccept>
             <PressableText
               onPress={() => setShowDialog({ id, action: "accept" })}

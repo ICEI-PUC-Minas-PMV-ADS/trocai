@@ -35,6 +35,7 @@ function OutgoingRequestList({
       to={item.toFuncionario}
       date={item.dia}
       id={item.id}
+      turno={item.turno}
       status={item.status}
       setShowDialog={setShowDialog}
     />
@@ -80,11 +81,13 @@ function Item({
   date,
   id,
   status,
+  turno,
   setShowDialog,
 }: {
   to: Employee;
   date: string;
   id: number;
+  turno: Shift;
   status: string;
   setShowDialog: Dispatch<SetStateAction<{ id: number } | undefined>>;
 }) {
@@ -94,6 +97,7 @@ function Item({
         <ItemContainer>
           <ItemText>{to.nomeCompleto}</ItemText>
           <ItemText>{moment(date).format("DD-MM-YY HH:mm")}</ItemText>
+          <ItemText>{turno}</ItemText>
           <ItemStatus style={{ marginTop: 10 }}>{status}</ItemStatus>
           <ItemRefuse>
             <PressableText onPress={() => setShowDialog({ id })}>
