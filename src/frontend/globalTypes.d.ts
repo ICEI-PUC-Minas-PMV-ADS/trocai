@@ -8,7 +8,7 @@ interface LoginParams {
 }
 interface LogInResponse {
   name: string;
-  id: string;
+  id: number;
   email: string;
 }
 interface ILoginParams {
@@ -63,13 +63,13 @@ interface ICrudReducerAction {
 type IncomingRequestObj = {
   from: string;
   date: number;
-  id: string;
+  id: number;
 };
 
 type OutgoingRequestObj = {
   to: string;
   date: number;
-  id: string;
+  id: number;
   status: "confirmado" | "recusado" | "pendente";
 };
 
@@ -78,7 +78,7 @@ type Employee = {
   Enum: number[];
   email: string;
   gestor: boolean;
-  id: string;
+  id: number;
   nome: string;
   nomeCompleto: string;
   pedidosDeTroca: ChangeRequest[];
@@ -91,10 +91,18 @@ type Employee = {
 type ChangeRequest = {
   dia: string;
   fromFuncionario: Employee;
-  id: string;
+  id: number;
   toFuncionario: Employee;
   turno: Shift;
   status: string;
 };
 
+type NewChangeRequest = {
+  dataDaTroca: string;
+  idFuncionarioSolicitado: number;
+  idFuncionarioSolicitante: number;
+  turnoDaTroca: Shift;
+};
+
 type Shift = "MANHA" | "TARDE" | "NOITE";
+type Status = "confirmado" | "recusado" | "pendente";

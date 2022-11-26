@@ -18,7 +18,7 @@ function IncomingRequestList({
   navigation,
 }: RootStackScreenProps<"RequestFromOthers">): JSX.Element {
   const [showDialog, setShowDialog] = useState<
-    { id: string; action: "accept" | "refuse" } | undefined
+    { id: number; action: "accept" | "refuse" } | undefined
   >();
   const [loading, setLoading] = useState(false);
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
@@ -60,7 +60,7 @@ function IncomingRequestList({
           <FlatList
             data={changeRequests}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => `${item.id}`}
             style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
         ) : null}
@@ -88,9 +88,9 @@ function Item({
 }: {
   from: Employee;
   date: string;
-  id: string;
+  id: number;
   setShowDialog: Dispatch<
-    SetStateAction<{ id: string; action: "accept" | "refuse" } | undefined>
+    SetStateAction<{ id: number; action: "accept" | "refuse" } | undefined>
   >;
 }) {
   return (

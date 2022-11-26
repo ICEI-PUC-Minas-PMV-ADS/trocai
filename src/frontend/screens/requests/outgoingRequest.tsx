@@ -18,7 +18,7 @@ import { fetchAllChangeRequest } from "../../services/api";
 function OutgoingRequestList({
   navigation,
 }: RootStackScreenProps<"RequestFromOthers">): JSX.Element {
-  const [showDialog, setShowDialog] = useState<{ id: string } | undefined>();
+  const [showDialog, setShowDialog] = useState<{ id: number } | undefined>();
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -56,7 +56,7 @@ function OutgoingRequestList({
           <FlatList
             data={changeRequests}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => `${item.id}`}
             style={{ width: Platform.OS === "web" ? 400 : "100%" }}
           />
         ) : null}
@@ -84,9 +84,9 @@ function Item({
 }: {
   to: Employee;
   date: string;
-  id: string;
+  id: number;
   status: string;
-  setShowDialog: Dispatch<SetStateAction<{ id: string } | undefined>>;
+  setShowDialog: Dispatch<SetStateAction<{ id: number } | undefined>>;
 }) {
   return (
     <Card style={shadowStyles}>
