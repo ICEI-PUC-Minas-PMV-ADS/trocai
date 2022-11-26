@@ -10,14 +10,15 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class PedidoDeTrocaDTO implements Serializable  {
+public class SolicitacaoDeTrocaDTO implements Serializable {
 
     private Long id;
 
-    private Long idFuncionarioSolicitante;
-    private Long idFuncionarioSolicitado;
+    private FuncionarioDTO funcionarioSolicitante;
+    private FuncionarioDTO funcionarioSolicitado;
     private Status status;
     private LocalDate dataDaTroca;
     private Turno turnoDaTroca;
+
 
 }
