@@ -69,3 +69,8 @@ interface IChangeRequestResponse {
 
 export const fetchAllChangeRequest = (): Promise<IChangeRequestResponse> =>
   TROCAI_API.get(TROCAI_PATHS.CHANGE_REQUESTS);
+
+export const createRequest = (
+  newRequest: NewChangeRequest
+): Promise<{ data: UserObject }> =>
+  API.post(`${TROCAI_PATHS.CHANGE_REQUESTS}`, newRequest);
