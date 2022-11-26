@@ -33,11 +33,11 @@ interface IUserResponse {
 
 export const fetchUsers = (): Promise<IUserResponse> => API.get(API_PATHS.USER);
 export const fetchUser = (userId: string): Promise<IUserResponse> =>
-  API.get(`${API_PATHS.USER}/${userId}`);
+  TROCAI_API.get(`${API_PATHS.USER}/${userId}`);
 export const createUser = (
   newUser: ISignupParams
 ): Promise<{ data: UserObject }> =>
-  API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser);
+  TROCAI_API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser);
 
 export const loginUser = async (
   user: ILoginParams
@@ -47,10 +47,10 @@ export const loginUser = async (
 export const updateUser = (
   updateduser: IUpdateUserParams
 ): Promise<IUserResponse> =>
-  API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser);
+  TROCAI_API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser);
 
 export const deleteUser = (userId: string): Promise<Response> =>
-  API.delete(`${API_PATHS.USER}/${userId}`);
+  TROCAI_API.delete(`${API_PATHS.USER}/${userId}`);
 
 interface IEmployeeResponse {
   data: Employee[];
@@ -73,4 +73,4 @@ export const fetchAllChangeRequest = (): Promise<IChangeRequestResponse> =>
 export const createRequest = (
   newRequest: NewChangeRequest
 ): Promise<{ data: UserObject }> =>
-  API.post(`${TROCAI_PATHS.CHANGE_REQUESTS}`, newRequest);
+  TROCAI_API.post(`${TROCAI_PATHS.CHANGE_REQUESTS}`, newRequest);
