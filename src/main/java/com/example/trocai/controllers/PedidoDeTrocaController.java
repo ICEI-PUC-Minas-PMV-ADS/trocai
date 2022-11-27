@@ -36,30 +36,30 @@ public class PedidoDeTrocaController {
     }
 
     @GetMapping("/porFuncionario/{funcionarioId}")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@PathVariable("funcionarioId") String id) throws Exception {
+    public List<PedidoDeTroca> fetchPedidosDeTrocaPorEmail(@PathVariable("funcionarioId") String id) {
         return pedidoDeTrocaService.findPedidosDeTrocaPorFuncionario(Integer.valueOf(id));
     }
 
     @GetMapping("/porFuncionario/{funcionarioId}/enviados")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception {
+    public List<PedidoDeTroca> fetchPedidosDeTrocaEnviadosPorFuncionario(@PathVariable("funcionarioId") String id) {
         return pedidoDeTrocaService.findPedidosDeTrocaEnviadosPorFuncionario(Integer.valueOf(id));
     }
 
     @GetMapping("/porFuncionario/{funcionarioId}/recebidos")
-    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable("funcionarioId") String id) throws Exception {
+    public List<PedidoDeTroca> fetchPedidosDeTrocaRecebidosPorFuncionario(@PathVariable("funcionarioId") String id) {
         return pedidoDeTrocaService.findPedidosDeTrocaRecebidosPorFuncionario(Integer.valueOf(id));
     }
 
     //TODO: validações que confirmem que turno e cargos são iguais. Senão, devolver resposta.
     @PostMapping
-    public ResponseEntity<Void> createPedidoDeTroca(@RequestBody PedidoDeTrocaDTO pedidoDTO) throws Exception {
+    public ResponseEntity<Void> createPedidoDeTroca(@RequestBody PedidoDeTrocaDTO pedidoDTO) {
         pedidoDeTrocaService.criarPedidoTroca(pedidoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     //TODO - isso vai alterar o status de pending para rejected ou accepted e disparar o workflow de atualilzação de escalas para os envolvidos
     @PatchMapping("/{trocaId}")
-    public String replyPedidoDeTroca(@PathVariable("trocaId") String id, @RequestBody String yesOrNo) throws Exception {
+    public String replyPedidoDeTroca(@PathVariable("trocaId") String id, @RequestBody String yesOrNo) {
 //        pedidoDeTrocaService.responderPedidoTroca(token);
        return "Not yet, bebê!";
     }
