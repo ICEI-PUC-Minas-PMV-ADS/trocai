@@ -3,6 +3,7 @@ package com.example.trocai.services;
 import com.example.trocai.dto.FuncionarioDTO;
 import com.example.trocai.dto.PedidoDeTrocaDTO;
 import com.example.trocai.dto.SolicitacaoDeTrocaDTO;
+import com.example.trocai.exceptions.FuncionarioNotFoundException;
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Status;
@@ -55,9 +56,9 @@ public class PedidoDeTrocaService {
         return pedidoDeTrocaRepository.save(pedido);
     }
 
-    public void criarPedidoTroca(PedidoDeTrocaDTO pedidoDTO) throws Exception {
-        Funcionario funcionarioSolicitante = getFuncionarioById(pedidoDTO.getIdFuncionarioSolicitante());
-        Funcionario funcionarioSolicitado = getFuncionarioById(pedidoDTO.getIdFuncionarioSolicitado());
+    public void criarPedidoTroca(PedidoDeTrocaDTO pedidoDTO) {
+        Funcionario funcionarioSolicitante = funcionarioService.findFuncionarioById(pedidoDTO.getIdFuncionarioSolicitante());
+        Funcionario funcionarioSolicitado = funcionarioService.findFuncionarioById(pedidoDTO.getIdFuncionarioSolicitado());
         pedidoDTO.setStatus(Status.PENDING);
 
         PedidoDeTroca pedidoDeTroca = PedidoDeTroca.builder()
@@ -74,52 +75,33 @@ public class PedidoDeTrocaService {
         this.pedidoDeTrocaRepository.save(pedidoDeTroca);
     }
 
-    public Funcionario getFuncionarioById(Long idFuncionarioSolicitante) throws Exception {
-        try {
-            return funcionarioService.findFuncionarioById(idFuncionarioSolicitante).get();
-        } catch (Exception e) {
-            throw new Exception("Funcionário não existe.");
-        }
-    }
+    public List<PedidoDeTroca> findPedidosDeTrocaPorFuncionario(Integer funcionarioID) {
 
-    public List<PedidoDeTroca> findPedidosDeTrocaPorFuncionario(Integer funcionarioID) throws Exception {
-        try {
-            List<PedidoDeTroca> pedidos = new ArrayList<>();
-            Funcionario funcionario = funcionarioService.findFuncionarioById(funcionarioID).get();
-            pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario));
-            pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario));
+        List<PedidoDeTroca> pedidos = new ArrayList<>();
+        Funcionario funcionario = funcionarioService.findFuncionarioById(funcionarioID);
+        pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario));
+        pedidos.addAll(pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario));
 
-            return pedidos;
-        } catch (Exception e) {
-            throw new Exception("Funcionário não existe.");
-        }
+        return pedidos;
     }
 
     //TODO - fix possible NPE's con los optionals
-    public List<PedidoDeTroca> findPedidosDeTrocaEnviadosPorFuncionario(Integer id) throws Exception{
-        try {
-            Funcionario funcionario = funcionarioService.findFuncionarioById(id).get();
-            return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario);
-        } catch (Exception e) {
-            throw new Exception("Funcionário não existe.");
-        }
+    public List<PedidoDeTroca> findPedidosDeTrocaEnviadosPorFuncionario(Integer id) {
+
+        Funcionario funcionario = funcionarioService.findFuncionarioById(id);
+        return pedidoDeTrocaRepository.findPedidoDeTrocaByFromFuncionario(funcionario);
     }
 
-    public List<PedidoDeTroca> findPedidosDeTrocaRecebidosPorFuncionario(Integer id) throws Exception {
-        try {
-
-            Funcionario funcionario = funcionarioService.findFuncionarioById(id).get();
-            return pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario);
-        } catch (Exception e) {
-            throw new Exception("Funcionário não existe.");
-        }
+    public List<PedidoDeTroca> findPedidosDeTrocaRecebidosPorFuncionario(Integer id) {
+        Funcionario funcionario = funcionarioService.findFuncionarioById(id);
+        return pedidoDeTrocaRepository.findPedidoDeTrocaByToFuncionario(funcionario);
     }
 
     public List<SolicitacaoDeTrocaDTO> getPedidosTrocaPorStatus(Status status, String emailFuncionario) throws Exception {
         if (emailFuncionario == null || emailFuncionario.isEmpty()) throw new Exception("E-mail não existe");
 
         Optional<Funcionario> funcionario = this.funcionarioService.findFuncionarioByEmail(emailFuncionario);
-        if (funcionario.isEmpty()) throw new Exception("Funcionário não existe");
+        if (funcionario.isEmpty()) throw new FuncionarioNotFoundException();
 
         List<PedidoDeTroca> pedidos =
                 this.customPedidoDeTrocaRepository.findAllByToFuncionarioAndStatus(funcionario.get(), status);

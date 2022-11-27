@@ -1,5 +1,6 @@
 package com.example.trocai.services;
 
+import com.example.trocai.exceptions.FuncionarioNotFoundException;
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Turno;
@@ -76,11 +77,14 @@ public class FuncionarioService  implements UserDetailsService {
     }
 
 
-    public Optional<Funcionario> findFuncionarioById(Long id) {
-        return funcionarioRepository.findFuncionarioById(id);
+    public Funcionario findFuncionarioById(Long id) throws FuncionarioNotFoundException {
+        return funcionarioRepository.findFuncionarioById(id)
+                .orElseThrow(() -> new FuncionarioNotFoundException());
     }
-    public Optional<Funcionario> findFuncionarioById(Integer id) {
-        return funcionarioRepository.findFuncionarioById(id);
+
+    public Funcionario findFuncionarioById(Integer id) throws FuncionarioNotFoundException {
+        return funcionarioRepository.findFuncionarioById(id)
+                .orElseThrow(() -> new FuncionarioNotFoundException());
     }
 
     public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, String turno) {
