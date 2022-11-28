@@ -20,7 +20,7 @@ public interface FuncionarioRepository
 
     Optional<Funcionario> findFuncionarioById(Long id);
 
-    @Query("{'escalaMensal.diasDeTrabalho.dia': {dia: ISODate('2022-15-09')}, 'dia.turnosLivres': {$in: [?1]}}")
+    @Query("{'escalaMensal.diasDeTrabalho.dia': ?0, ?1: {$in: 'escalaMensal.diasDeTrabalho.dia.turnosLivres'}}")
     List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, Turno turno);
 
 }

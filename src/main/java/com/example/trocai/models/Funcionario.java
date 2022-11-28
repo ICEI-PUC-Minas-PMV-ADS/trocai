@@ -1,5 +1,6 @@
 package com.example.trocai.models;
 
+import com.example.trocai.dto.FuncionarioDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -71,5 +72,8 @@ public class Funcionario {
         this.escalaMensal.inicializaTurnosDiasDeTrabalho(turnoPrincipal);
     }
 
+    public FuncionarioDTO toFuncionarioDTO (){
+        return new FuncionarioDTO(Long.valueOf(this.id), this.email, this.nomeCompleto);
+    }
 
 }

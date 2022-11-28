@@ -42,4 +42,5 @@ public class PedidoDeTroca {
         this.turno = turno;
 
     }
+
 }

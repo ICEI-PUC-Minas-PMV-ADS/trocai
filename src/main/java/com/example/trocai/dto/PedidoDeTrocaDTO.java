@@ -2,15 +2,16 @@ package com.example.trocai.dto;
 
 import com.example.trocai.models.Status;
 import com.example.trocai.models.Turno;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class PedidoDeTrocaDTO implements Serializable  {
 
     private Long id;

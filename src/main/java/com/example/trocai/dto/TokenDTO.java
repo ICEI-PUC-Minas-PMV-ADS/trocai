@@ -9,11 +9,11 @@ public class TokenDTO implements Serializable {
 
     private static final long serialVersionUID = 5848598930639358295L;
 
-    private String username;
+    private FuncionarioDTO user;
     private String token;
 
-    public TokenDTO(String username, String token) {
-        this.username = username;
+    public TokenDTO(FuncionarioDTO user, String token) {
+        this.user = user;
         this.token = token;
     }
 }
