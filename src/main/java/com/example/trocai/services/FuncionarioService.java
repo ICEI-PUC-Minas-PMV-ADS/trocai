@@ -72,6 +72,10 @@ public class FuncionarioService  implements UserDetailsService {
         funcionarioRepository.saveAll(List.of(to, from));
     }
 
+    public void updateFuncionarios(List<Funcionario> funcionarios){
+        funcionarioRepository.saveAll(funcionarios);
+    }
+
 
     public Funcionario findFuncionarioById(Long id) throws FuncionarioNotFoundException {
         return funcionarioRepository.findFuncionarioById(id)
@@ -91,8 +95,7 @@ public class FuncionarioService  implements UserDetailsService {
         List <Funcionario> funcBuscados = new ArrayList<>();
 
         allFunc.forEach(f -> {
-            Dia diabuscado = f.getEscalaMensal().getDiasDeTrabalho().stream().filter(dT -> dT.getDia().getDayOfMonth() == date.getDayOfMonth()).findFirst()
-                    .orElseThrow();
+            Dia diabuscado = f.getEscalaMensal().getDiaDeTrabalho(date);
             if (!diabuscado.getTurnosOcupados().contains(turnoBuscado))
             { funcBuscados.add(f);}
         });

@@ -1,5 +1,6 @@
 package com.example.trocai.services;
 
+import com.example.trocai.auth.JwtTokenUtil;
 import com.example.trocai.dto.FuncionarioDTO;
 import com.example.trocai.dto.PedidoDeTrocaDTO;
 import com.example.trocai.dto.SolicitacaoDeTrocaDTO;
@@ -7,12 +8,14 @@ import com.example.trocai.exceptions.FuncionarioNotFoundException;
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Status;
+import com.example.trocai.models.Turno;
 import com.example.trocai.repositories.CustomPedidoDeTrocaRepository;
 import com.example.trocai.repositories.PedidoDeTrocaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,8 @@ public class PedidoDeTrocaService {
     @Autowired
     private CustomPedidoDeTrocaRepository customPedidoDeTrocaRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     public List<PedidoDeTroca> getAllPedidoDeTroca() {
         return pedidoDeTrocaRepository.findAll();
@@ -137,4 +142,60 @@ public class PedidoDeTrocaService {
                 .status(pedidoDeTroca.getStatus())
                 .build();
     }
+
+    public String responderPedidoTroca(String id, Boolean resposta) {
+
+        PedidoDeTroca pedido = encontrarPorId(id);
+        Funcionario funcionarioFrom = pedido.getFromFuncionario();
+        Funcionario funcionarioTo = pedido.getToFuncionario();
+        LocalDateTime diaDaTroca = pedido.getDia();
+        Turno turnoLivreSolicitado = pedido.getTurno();
+        String res;
+
+        //turno de trabalho do funcionarioTo
+        Turno turnoDeTrabalhoFuncionarioToAntesDaTroca = funcionarioTo.getEscalaMensal().encontrarTurnoDeTrabalho(diaDaTroca);
+
+
+        if (resposta) {
+
+            if (validateCargo(pedido)) {
+                //atualiza turnos de trabalho funcionario solicitante
+                funcionarioFrom.getEscalaMensal().removerTurnoDeTrabalho(diaDaTroca, turnoLivreSolicitado);
+                funcionarioFrom.getEscalaMensal().assignarTurnoDeTrabalho(diaDaTroca, turnoDeTrabalhoFuncionarioToAntesDaTroca);
+
+                //atualiza turnos de trabalho funcionario solicitado
+                funcionarioTo.getEscalaMensal().removerTurnoDeTrabalho(diaDaTroca, turnoDeTrabalhoFuncionarioToAntesDaTroca);
+                funcionarioTo.getEscalaMensal().assignarTurnoDeTrabalho(diaDaTroca, turnoLivreSolicitado);
+
+                //atualiza status do pedido de Troca
+                pedido.setStatus(Status.ACCEPTED);
+
+                res = "Pedido ACCEPTED";
+            } else {
+                res = "Pedido INVÁLIDO: Cargos dos funcionários não são equivalentes.";
+            }
+
+        } else {
+            pedido.setStatus(Status.REJECTED);
+            res = "PEDIDO REJECTED";
+        }
+
+        pedidoDeTrocaRepository.save(pedido);
+        funcionarioService.updateFuncionarios(List.of(funcionarioFrom, funcionarioTo));
+
+        return res;
+    }
+
+    public boolean validateCargo(PedidoDeTroca pedido) {
+        Funcionario funcionarioFrom = pedido.getFromFuncionario();
+        Funcionario funcionarioTo = pedido.getToFuncionario();
+        return funcionarioTo.getCargo().equals(funcionarioFrom.getCargo());
+    }
+
+    public PedidoDeTroca encontrarPorId(String swapId) {
+        return pedidoDeTrocaRepository.findPedidoDeTrocaById(Integer.parseInt(swapId)).orElseThrow();
+
+    }
+
+
 }

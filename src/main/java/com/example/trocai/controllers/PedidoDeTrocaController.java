@@ -8,7 +8,6 @@ import com.example.trocai.models.Status;
 import com.example.trocai.services.PedidoDeTrocaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,14 +53,28 @@ public class PedidoDeTrocaController {
     @PostMapping
     public ResponseEntity<Void> createPedidoDeTroca(@RequestBody PedidoDeTrocaDTO pedidoDTO) {
         pedidoDeTrocaService.criarPedidoTroca(pedidoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     //TODO - isso vai alterar o status de pending para rejected ou accepted e disparar o workflow de atualilzação de escalas para os envolvidos
-    @PatchMapping("/{trocaId}")
-    public String replyPedidoDeTroca(@PathVariable("trocaId") String id, @RequestBody String yesOrNo) {
-//        pedidoDeTrocaService.responderPedidoTroca(token);
-       return "Not yet, bebê!";
+    @PostMapping("/{trocaId}/response")
+    public ResponseEntity<String> replyPedidoDeTroca(
+//            @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+            @PathVariable("trocaId") String id,
+            @RequestBody String res) {
+
+        Boolean resposta = res.contains("true");
+        PedidoDeTroca pedido = pedidoDeTrocaService.encontrarPorId(id);
+
+        //TODO - validar que somente funcionarioTo/solicitado possam responder a swap request
+
+        //      if (jwtTokenUtil.getUsernameFromToken(token).contains(pedido.getToFuncionario().getEmail())) {
+        String msg = pedidoDeTrocaService.responderPedidoTroca(id, resposta);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(msg);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Somente funcionários solicitados podem responder a um pedido de Troca");
+//        }
+
     }
 
     @GetMapping("/solicitacoes")

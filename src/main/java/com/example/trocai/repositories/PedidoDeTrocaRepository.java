@@ -6,13 +6,20 @@ import com.example.trocai.models.Status;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface PedidoDeTrocaRepository
         extends MongoRepository<PedidoDeTroca, String> {
 
     List<PedidoDeTroca> findPedidoDeTrocaByFromFuncionario(Funcionario funcionarioFrom);
+
     List<PedidoDeTroca> findPedidoDeTrocaByToFuncionario(Funcionario funcionarioTo);
+
     List<PedidoDeTroca> findAllByToFuncionarioAndStatus(Funcionario funcionario, Status status);
+
+    Optional<PedidoDeTroca> findPedidoDeTrocaById(int id);
+
+
 }
 

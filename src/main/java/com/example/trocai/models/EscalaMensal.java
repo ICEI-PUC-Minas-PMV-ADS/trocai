@@ -68,5 +68,26 @@ public class EscalaMensal {
 
     }
 
+    public Dia getDiaDeTrabalho(LocalDateTime data) {
+        return this.diasDeTrabalho.stream().filter(dT -> dT.getDia().getDayOfMonth() == data.getDayOfMonth()).findFirst()
+                .orElseThrow();
+    }
+
+    public void assignarTurnoDeTrabalho(LocalDateTime data, Turno turno){
+        this.getDiaDeTrabalho(data).getTurnosOcupados().add(turno);
+
+    }
+
+    public void removerTurnoDeTrabalho(LocalDateTime data, Turno turno){
+        this.getDiaDeTrabalho(data).getTurnosOcupados().remove(turno);
+
+    }
+
+    //No momento, somente um turno de trabalho por dia
+    public Turno encontrarTurnoDeTrabalho(LocalDateTime data) {
+        return this.getDiaDeTrabalho(data).getTurnosOcupados().stream().findFirst().orElseThrow();
+    }
+
+
 }
 
