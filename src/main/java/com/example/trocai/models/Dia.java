@@ -11,15 +11,14 @@ import java.util.Set;
 @Data
 public class Dia {
 
-    LocalDate dia;
+    LocalDateTime dia;
     boolean diaLivre;
     Set<Turno> turnosOcupados;
-    Set<Turno> turnosLivres;
 
-    public Dia(LocalDate dia, boolean diaLivre) {
+    public Dia(LocalDateTime dia, boolean diaLivre) {
         this.dia = dia;
         this.diaLivre = diaLivre;
         this.turnosOcupados = new HashSet<>();
-        this.turnosLivres = new HashSet<>();
     }
+
 }

@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -20,7 +20,7 @@ public class PedidoDeTrocaDTO implements Serializable  {
 
     private Long idFuncionarioSolicitado;
     private Status status;
-    private LocalDate dataDaTroca;
+    private LocalDateTime dataDaTroca;
     private Turno turnoDaTroca;
 
 }

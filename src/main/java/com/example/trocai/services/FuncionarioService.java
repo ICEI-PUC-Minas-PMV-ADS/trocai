@@ -1,6 +1,7 @@
 package com.example.trocai.services;
 
 import com.example.trocai.exceptions.FuncionarioNotFoundException;
+import com.example.trocai.models.Dia;
 import com.example.trocai.models.Funcionario;
 import com.example.trocai.models.PedidoDeTroca;
 import com.example.trocai.models.Turno;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +48,6 @@ public class FuncionarioService  implements UserDetailsService {
         return String.format("Funcionario %s was successfully created", funcionario.getNome());
     }
 
-
-//    public List<Funcionario> getFuncionarioByTurnoLivre(@RequestParam int day, int month, int year, String turno){
-//        LocalDate dia = LocalDate.of(year, month, day);
-//        return funcionarioRepository.getFuncionarioByTurnoLivre(dia,Turno.valueOf(turno));
-//    }
     public List<Funcionario> findFuncionariosByTurnoPrincipal(@RequestParam String turno){
         return funcionarioRepository.findFuncionariosByTurnoPrincipal(Turno.valueOf(turno.toUpperCase()));
     }
@@ -87,10 +83,21 @@ public class FuncionarioService  implements UserDetailsService {
                 .orElseThrow(() -> new FuncionarioNotFoundException());
     }
 
-    public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, String turno) {
+    //Workaround (mei lento....) em Java porque mongo não deu certo
+    public List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDateTime date, String turno) throws Exception{
 
         Turno turnoBuscado = Turno.valueOf(turno.toUpperCase());
-        return funcionarioRepository.findFuncionariosByTurnoLivreAndDate(date, turnoBuscado);
+        List<Funcionario> allFunc = funcionarioRepository.findAll();
+        List <Funcionario> funcBuscados = new ArrayList<>();
+
+        allFunc.forEach(f -> {
+            Dia diabuscado = f.getEscalaMensal().getDiasDeTrabalho().stream().filter(dT -> dT.getDia().getDayOfMonth() == date.getDayOfMonth()).findFirst()
+                    .orElseThrow();
+            if (!diabuscado.getTurnosOcupados().contains(turnoBuscado))
+            { funcBuscados.add(f);}
+        });
+
+        return funcBuscados;
     }
 
 

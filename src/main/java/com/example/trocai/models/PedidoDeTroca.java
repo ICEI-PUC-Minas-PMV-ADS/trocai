@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Document(collection="trocas")
@@ -29,13 +29,13 @@ public class PedidoDeTroca {
 
     @DBRef(lazy=true)
     private Funcionario toFuncionario;
-    private LocalDate dia;
+    private LocalDateTime dia;
     private Turno turno;
 
     private Status status;
 
 
-    public PedidoDeTroca(Funcionario fromFuncionario, Funcionario toFuncionario, LocalDate dia, Turno turno) {
+    public PedidoDeTroca(Funcionario fromFuncionario, Funcionario toFuncionario, LocalDateTime dia, Turno turno) {
         this.fromFuncionario = fromFuncionario;
         this.toFuncionario = toFuncionario;
         this.dia = dia;

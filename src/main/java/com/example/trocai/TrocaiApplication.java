@@ -8,15 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.time.Month;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.time.LocalDate;
+
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableSwagger2
@@ -81,7 +79,7 @@ public class TrocaiApplication {
 //                        });
 //            }
 //
-//            PedidoDeTroca pedidoDeTroca = new PedidoDeTroca(paola, paulina, LocalDate.of(2022, Month.of(9), 10), Turno.MANHA);
+//            PedidoDeTroca pedidoDeTroca = new PedidoDeTroca(paola, paulina, LocalDateTime.of(2022, 9, 1, 00, 00), Turno.MANHA);
 //            pedidoDeTroca.setStatus(Status.PENDING);
 //
 //            pedidoDeTrocaService.insertPedidoDeTroca(pedidoDeTroca);

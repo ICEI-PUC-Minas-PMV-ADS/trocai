@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Document
+@Document(collection="funcionarios")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude={"escalaMensal", "senha"})

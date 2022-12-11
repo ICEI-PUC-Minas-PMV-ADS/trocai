@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -52,8 +52,8 @@ public class FuncionarioController {
             @RequestParam int month,
             @RequestParam int day,
             @RequestParam String turno
-    ){
-        LocalDate searchDate = LocalDate.of(year, month, day);
+    ) throws Exception {
+        LocalDateTime searchDate = LocalDateTime.of(year, month, day, 0, 0);
         List<Funcionario> funcionarios = funcionarioService.findFuncionariosByTurnoLivreAndDate(searchDate, turno);
 
         if (funcionarios.isEmpty()) {

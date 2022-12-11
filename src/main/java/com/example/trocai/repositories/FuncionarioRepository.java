@@ -5,7 +5,7 @@ import com.example.trocai.models.Turno;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +20,8 @@ public interface FuncionarioRepository
 
     Optional<Funcionario> findFuncionarioById(Long id);
 
-    @Query("{'escalaMensal.diasDeTrabalho.dia': ?0, ?1: {$in: 'escalaMensal.diasDeTrabalho.dia.turnosLivres'}}")
-    List<Funcionario> findFuncionariosByTurnoLivreAndDate(LocalDate date, Turno turno);
+    //Won't work!!
+    @Query("{$and: [{?0: {$nin: ['escalaMensal.diasDeTrabalho.dia.turnosOcupados']}}, {'escalaMensal.diasDeTrabalho.dia': ?1}]}")
+    List<Funcionario> findByTurnoLivreAndDate(Turno turno, LocalDateTime date);
 
 }
